@@ -2,7 +2,7 @@ const express = require('express')
 const serverConfig = require('./app/config/server.config')
 const mongoose = require("mongoose");
 const mongoDB = "mongodb://127.0.0.1/DouCrochet";
-const User = require('./app/models/User');
+const User = require('./app/services/newUser')
 
 mongoose.connect(mongoDB).then(r => {
     console.log('Connected to MongoDB')
@@ -21,19 +21,4 @@ app.get('/api',(req,res) => res.status(200).send({message : 'test server'}))
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
 
-const callUser = new User({
-    firstname: 'Elisa',
-    lastname: 'exemple',
-    email: 'test@test.fr',
-    password: 'exemple',
-    birthdate: '1987-05-05'
-})
 
-callUser.save()
-// .then((res) => console.log(res))
-// .catch((err) => console.log(err))
-
-// UserSchema.create({ name: "Elisa" }, function (err, callUser) {
-//     if (err) console.log('test');
-//     // saved!
-//   });

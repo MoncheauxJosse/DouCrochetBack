@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+require('./telephone.model');
+require('./roleuser.model');
 
 const Schema = mongoose.Schema;
 
@@ -16,6 +18,13 @@ const Schema = mongoose.Schema;
         required: true,
         unique: true,
     },
+    telephone: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'telephone',
+            required: true,
+        },
+    ],
     password: {
         type: String,
         required: true,
@@ -24,5 +33,12 @@ const Schema = mongoose.Schema;
         type: Date,
         required: true,
     },
+    role: {
+        type: Schema.Types.ObjectId,
+        ref: 'role',
+        required: true
+    }
 })
+
+
 module.exports = mongoose.model('User', User);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('./tva.model')
 
 const Schema = mongoose.Schema;
 
@@ -24,5 +25,9 @@ const Schema = mongoose.Schema;
     quantity: {
         type: Number,
     },
+    tva: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Tva'
+    }]
 })
 module.exports = mongoose.model('Product', ProductSchema)
