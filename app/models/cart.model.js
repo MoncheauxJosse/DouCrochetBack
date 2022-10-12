@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('./address.model');
 require('./user.model');
-require('./order.model');
+require('./productline.model');
 
 const Schema = mongoose.Schema;
 
@@ -22,13 +22,17 @@ const Cart = new Schema({
         type: Date,
         required: true
     },
-    address: [{
+    address: {
         type: Schema.Types.ObjectId,
         ref: 'Address'
-    }],
-    user: [{
+    },
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    productLine: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ProductLine'
     }]
 })
 

@@ -20,8 +20,7 @@ const Schema = mongoose.Schema;
     },
     telephone: [
         {
-            type: Schema.Types.ObjectId,
-            ref: 'telephone',
+            type: String,
             required: true,
         },
     ],

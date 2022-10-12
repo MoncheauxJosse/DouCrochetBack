@@ -17,7 +17,7 @@ const Schema = mongoose.Schema;
         required: true
     },
     creation_date: {
-        type: Date,
+        type: Date.now(),
     },
     image: {
         type: String,
@@ -28,6 +28,10 @@ const Schema = mongoose.Schema;
     tva: [{
         type: Schema.Types.ObjectId,
         ref: 'Tva'
+    }],
+    category: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ProductCategory'
     }]
 })
 module.exports = mongoose.model('Product', ProductSchema)
