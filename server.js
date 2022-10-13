@@ -1,7 +1,7 @@
 const express = require('express')
 const serverConfig = require('./app/config/server.config')
 const mongoose = require("mongoose");
-const mongoDB = "mongodb://localhost:27017/test";
+const mongoDB = "mongodb://localhost:27017/DouCrochet";
 const User = require('./app/services/newUser')
 
 mongoose.connect(mongoDB).then(r => {
@@ -20,6 +20,5 @@ const app = express()
 app.get('/api',(req,res) => res.status(200).send({message : 'test server'}))
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
-User.callback();
 
 

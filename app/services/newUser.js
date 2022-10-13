@@ -1,18 +1,28 @@
 const User = require('../models/user.model')
+const Role = require('../models/role.model')
 
-const callUser = new User({
-    firstname: 'Elisaa',
-    lastname: 'exemple',
-    email: 'elisa@machin.fr',
-    password: 'exemple',
-    birthdate: '1987-05-05',
-    telephone: ['0606060606'],
-    role: '5f9f1b0b0b1b2c1c8c8c8c8c',
+Role.find({ role: 'client'}, function (err, data){
+
+    const role = data
+
+    console.log(role[0]._id)
+
+    const callUser = new User({
+   firstname: 'Elisaa',
+   lastname: 'exemple',
+   email: 'elisa@yudvezv.fr',
+   password: 'exemple',
+   birthdate: '1987-05-05',
+   role: role[0]._id
 })
 
-const callback = () => {
-    callUser.save()
-}
+callUser.save()
+});
 
+const callRole = new Role({
+   role: "client"
+})
 
-module.exports = {callUser, callback};
+callRole.save()
+
+module.exports = callUser;
