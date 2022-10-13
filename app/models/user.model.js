@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-require('./telephone.model');
-require('./roleuser.model');
+require('./role.model');
 
 const Schema = mongoose.Schema;
 
@@ -36,7 +35,15 @@ const Schema = mongoose.Schema;
         type: Schema.Types.ObjectId,
         ref: 'role',
         required: true
-    }
+    },
+    adresse: {
+        type: Schema.Types.ObjectId,
+        ref: 'Address',
+    },
+     orders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Order'
+     }]
 })
 
 

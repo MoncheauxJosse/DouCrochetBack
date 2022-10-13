@@ -5,11 +5,13 @@ require('./productline.model');
 
 const Schema = mongoose.Schema;
 
-const Cart = new Schema({
+const Order = new Schema({
     order_date: {
         type: Date,
+        default: Date.now,
         required: true
     },
+    // changer par une relation
     order_state: {
         type: String,
         required: true
@@ -36,4 +38,4 @@ const Cart = new Schema({
     }]
 })
 
-module.exports = mongoose.model('Cart', Cart)
+module.exports = mongoose.model('Order', Order)

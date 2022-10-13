@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('./cart.model')
+require('./order.model')
 require('./product.model')
 
 const Schema = mongoose.Schema;

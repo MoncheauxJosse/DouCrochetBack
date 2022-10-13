@@ -17,7 +17,8 @@ const Schema = mongoose.Schema;
         required: true
     },
     creation_date: {
-        type: Date.now(),
+        type: Date,
+        default: Date.now
     },
     image: {
         type: String,

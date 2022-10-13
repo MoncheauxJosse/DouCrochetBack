@@ -5,12 +5,14 @@ const callUser = new User({
     lastname: 'exemple',
     email: 'elisa@machin.fr',
     password: 'exemple',
-    birthdate: '1987-05-05'
+    birthdate: '1987-05-05',
+    telephone: ['0606060606'],
+    role: '5f9f1b0b0b1b2c1c8c8c8c8c',
 })
 
-const callback = () =>{
+const callback = () => {
     callUser.save()
 }
 
 
-module.exports = callUser;
+module.exports = {callUser, callback};

@@ -23,11 +23,7 @@ const Address = new Schema({
     number: {
         type: Number,
         required: true
-    },
-    category: [{
-        type: Schema.Types.ObjectId,
-        ref: 'AddressCategory', 
-    }],
+    }
 })
 
 module.exports = mongoose.model('Address', Address)
