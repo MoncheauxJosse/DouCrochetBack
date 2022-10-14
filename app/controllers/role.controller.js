@@ -1,23 +1,52 @@
 
-const Role = require('../models/role.model')
+const RoleModel = require('../models/role.model');
 
-const getRole = (res, req) =>{
-    Role.find((error, data)=>{
-        if(error)
-        res.status(500).send({message : error.message})
-        else
-        res.send(data);
-    })
+// get all roles
+const findAll = (req, res) => {
+    RoleModel.find()
+        .then((roles) => {
+            res.status(200).send(roles);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while retrieving roles.',
+            });
+        });
 }
 
-// const login = async ()=> {
-//     const roleverify = await getUser();
-//     if(userexist){
-//         //je verifie le mot de passe
-//     }
-//     else{
-//         //envoyer erreur email incorrect
-//     }
-// }
+const insert = (req, res) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: 'Content can not be empty!',
+        });
+    }
+    // Create a Role
+    const role = new RoleModel({ ...req.body });
+    // Save Role in the database
+    RoleModel.create(role, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message: err.message || 'Some error occurred while creating the Role.',
+            });
+        else res.send(data);
+    });
+}
 
-module.exports = getRole
+const findOne = (req, res) => {
+    RoleModel.findById(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === 'not_found') {
+                res.status(404).send({
+                    message: `Not found Role with id ${req.params.id}.`,
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error retrieving Role with id ${req.params.id}`,
+                });
+            }
+        } else res.send(data);
+    });
+}
+
+module.exports = {findAll, insert}
