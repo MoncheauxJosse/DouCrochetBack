@@ -5,24 +5,25 @@ Role.find({ role: 'client'}, function (err, data){
 
     const role = data
 
-    console.log(role[0]._id)
+   //  console.log(role[0]._id)
 
     const callUser = new User({
    firstname: 'Elisaa',
    lastname: 'exemple',
-   email: 'elisa@yudvezv.fr',
+   email: 'elisa@yudvezv1.fr',
    password: 'exemple',
    birthdate: '1987-05-05',
    role: role[0]._id
 })
 
-callUser.save()
+/* Saving the user to the database. */
+// callUser.save()
 });
 
-const callRole = new Role({
-   role: "client"
-})
+// const callRole = new Role({
+//    role: "client"
+// })
 
-callRole.save()
+// callRole.save()
 
-module.exports = callUser;
+// module.exports = callUser;
