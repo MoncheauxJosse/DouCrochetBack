@@ -49,4 +49,4 @@ const findOne = (req, res) => {
     });
 }
 
-module.exports = {findAll, insert}
+module.exports = {findAll, insert, findOne}
