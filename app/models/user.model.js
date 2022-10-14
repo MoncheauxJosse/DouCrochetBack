@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 require('./role.model');
+const bcrypt = require('bcryptjs')
 
 const Schema = mongoose.Schema;
 
@@ -46,5 +47,8 @@ const Schema = mongoose.Schema;
      }]
 })
 
+User.methods.matchPassword = async function (enterPassword){
+    return await bcrypt.compare(enterPassword, this.password);
+}
 
 module.exports = mongoose.model('User', User);
