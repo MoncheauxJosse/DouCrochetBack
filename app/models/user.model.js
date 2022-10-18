@@ -15,7 +15,6 @@ const Schema = mongoose.Schema;
     email: {
         type: String,
         required: true,
-        unique: true,
     },
     telephone: [
         {
@@ -34,7 +33,7 @@ const Schema = mongoose.Schema;
     role: {
         type: Schema.Types.ObjectId,
         ref: 'role',
-        required: true
+        required: true,
     },
     adresse: {
         type: Schema.Types.ObjectId,
@@ -45,6 +44,5 @@ const Schema = mongoose.Schema;
         ref: 'Order'
      }]
 })
-
 
 module.exports = mongoose.model('User', User);

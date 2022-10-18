@@ -1,0 +1,17 @@
+POST http://localhost:5001/user/insert 
+Content-Type: application/json
+
+    {
+        "firstname": "max",
+        "lastname": "Lebon",
+        "email": "test@gmail.com",
+        "telephone": "0606060606",
+        "password": "test",
+        "birthdate": "23091991",
+        "adresse": "4 rue dupont lille",
+        "country":"france",
+        "city":"lille",
+        "cityCode":"59000",
+        "street":"Rue jean",
+        "number": "3"
+    }

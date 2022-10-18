@@ -34,7 +34,7 @@ const insert = (req, res) => {
 }
 
 const findOne = (req, res) => {
-    RoleModel.findById(req.params.id, (err, data) => {
+    RoleModel.findOne(req.params.id, (err, data) => {
         if (err) {
             if (err.kind === 'not_found') {
                 res.status(404).send({
@@ -46,7 +46,13 @@ const findOne = (req, res) => {
                 });
             }
         } else res.send(data);
+    }).then((data)=>{
+        res.status(200).send(data)
     });
 }
 
-module.exports = {findAll, insert, findOne}
+const findByRole = async function(role){
+   return await RoleModel.find({role:role})
+}
+
+module.exports = {findAll, insert, findOne, findByRole}
