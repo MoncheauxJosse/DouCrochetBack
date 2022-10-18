@@ -8,10 +8,10 @@ const Role = require('../models/role.model')
 //     console.log(role[0]._id)
 
 //     const callUser = new User({
-//    firstname: 'Elisaa',
-//    lastname: 'exemple',
-//    email: 'elisa@yudvezv.fr',
-//    password: 'exemple',
+//    firstname: 'Elisa',
+//    lastname: 'Rogge',
+//    email: 'elisa@test.fr',
+//    password: 'ceciestunexemple',
 //    birthdate: '1987-05-05',
 //    role: role[0]._id
 // })

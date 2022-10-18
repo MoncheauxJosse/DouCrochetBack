@@ -1,9 +1,10 @@
-const express = require('express')
-const serverConfig = require('./app/config/server.config')
+const express = require('express');
+const serverConfig = require('./app/config/server.config');
 const mongoose = require("mongoose");
 const mongoDB = "mongodb://localhost:27017/DouCrochet";
-const User = require('./app/services/newUser')
-const userRouter = require('./app/routes/user.router')
+// const User = require('./app/services/newUser')
+const userRouter = require('./app/routes/user.router');
+const cors = require('cors')
 
 mongoose.connect(mongoDB).then(r => {
     console.log('Connected to MongoDB')
@@ -17,12 +18,27 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 const PORT = serverConfig.PORT || 5000
 const app = express()
 
+const corsOptions = {
+    origin:'http://localhost:5173/', 
+    credentials: true, 
+    optionsSuccessStatus:200,
+    methods: "*"
+}
+
+app.use(cors(corsOptions));
+
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+
 app.use(express.json())
+
 app.use("/users", userRouter);
 
 app.get('/api',(req,res) => res.status(200).send({message : 'test server'}))
 
-
-app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 
