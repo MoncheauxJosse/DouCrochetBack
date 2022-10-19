@@ -1,7 +1,7 @@
 const User = require('../models/user.model')
 const Role = require('../models/role.model')
 
-Role.find({ role: 'client'}, function (err, data){
+/*Role.find({ role: 'client'}, function (err, data){
 
     const role = data
 
@@ -23,6 +23,6 @@ const callRole = new Role({
    role: "client"
 })
 
-callRole.save()
+callRole.save()*/
 
-module.exports = callUser;
+//module.exports = callUser;
