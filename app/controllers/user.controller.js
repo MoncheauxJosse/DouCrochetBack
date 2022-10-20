@@ -11,15 +11,16 @@ const insert =  async (req, res) => {
             message: 'Le champ ne peut être vide!',
         });
     }
-    const password = bcrypt.hashSync(req.body.password, 10);
-
+    let password = "";
+    if(req.body.password===req.body.Confirmpassword){
+        
+        password = bcrypt.hashSync(req.body.password, 10);
+    }
+    //Verification du role en BDD
     const role = await Role.findByRole("client")
-    console.log(role[0])
-
+    //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
     const adresseCreate = await AdresseController.insert(req)
-    // const adresse = await AdresseController.findOne(adresseCreate)
-    console.log(adresseCreate)
-
+    //création et insert de mon user dans la BDD
     const User = new UserModel({ 
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -31,7 +32,8 @@ const insert =  async (req, res) => {
         adresse:adresseCreate._id
     });
     User.save()
-    res.send('Compte créé, veuillez vous connecter')
+    res.send({
+        message : 'Compte créé, veuillez vous connecter'})
     }
 
 module.exports = {insert}

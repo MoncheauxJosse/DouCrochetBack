@@ -6,6 +6,7 @@ const mongoDB = "mongodb://localhost:27017/DouCrochet";
 // const roleservice = require('./app/services/role.service')
 const roleRoute = require('./app/routes/role.router')
 const userRoute = require('./app/routes/user.router')
+const cors = require ('cors')
 
 
 const rolecontroller = require('./app/controllers/role.controller')
@@ -19,6 +20,15 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const PORT = serverConfig.PORT || 5000
 const app = express()
+
+const corsOptions = {
+    origin:'http://127.0.0.1:5173', 
+    credentials: true, 
+    optionsSuccessStatus:200,
+    methods: "*"
+}
+
+app.use(cors(corsOptions));
 
 app.use(express.json())
 
