@@ -17,7 +17,7 @@ const protect = asyncHandler(
             }catch (error){
                 console.error(error);
                 res.status(401)
-                throw new Error("Pas autorisé, token failed")
+                throw new Error("Pas autorisé, token échoué")
             }
         }else if(!token){
             res.status(401)
