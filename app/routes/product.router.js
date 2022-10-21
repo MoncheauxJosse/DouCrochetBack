@@ -1,10 +1,11 @@
 const express = require('express')
-const Register = require('../controllers/controllerProduct')
-
-const productRoute = express.Router()
+const productController = require("../controllers/product.controller.js");
 
 
-productRoute.post('/',Register)
+const routers = express.Router()
 
-module.exports = productRoute
+routers.get("/", productController.findAll);
+routers.post("/", productController.create);
+// routers.get("/:id", controller.findOne)
 
+module.exports = routers

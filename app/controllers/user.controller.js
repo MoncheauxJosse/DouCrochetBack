@@ -1,9 +1,11 @@
-const { findOne } = require('../models/role.model');
+
 const UserModel = require('../models/user.model');
 const Role = require('../controllers/role.controller')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const AdresseController = require('../controllers/adresse.controller')
-const AdresseModel = require('../models/address.model')
+const User = require('../models/user.model');
+const asyncHandler = require("express-async-handler");
+const generateToken = require('../security/jwt.security');
 
 const insert =  async (req, res) => {
     if(!req.body){
@@ -17,6 +19,7 @@ const insert =  async (req, res) => {
         password = bcrypt.hashSync(req.body.password, 10);
     }
     //Verification du role en BDD
+    //TODO: A revoir créer service role adresse et user
     const role = await Role.findByRole("client")
     //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
     const adresseCreate = await AdresseController.insert(req)
@@ -36,14 +39,9 @@ const insert =  async (req, res) => {
         message : 'Compte créé, veuillez vous connecter'})
     }
 
-module.exports = {insert}
-const User = require('../models/user.model');
-const asyncHandler = require("express-async-handler");
-const generateToken = require('../config/generateToken');
-
-
 //On récupère les utilisateurs
-const findUser = (req, res) => {
+//TODO: A revoir a placer dans un service
+const findAll = (req, res) => {
     User.find()
         .then((user) => {
             res.status(200).send(user);
@@ -89,4 +87,4 @@ const profileUser = asyncHandler(async (req, res) => {
         }
     })
 
-module.exports = {findUser, checkUser, profileUser}
+module.exports = {findAll, checkUser, profileUser, insert}

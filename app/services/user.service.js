@@ -1,9 +1,6 @@
 const User = require('../models/user.model')
 
-const getuser = async ()  => {
+const findAll = async ()  => {
  return await User.find().populate("role");
 }
-
-
-
-module.exports = getuser;
+module.exports = {findAll};

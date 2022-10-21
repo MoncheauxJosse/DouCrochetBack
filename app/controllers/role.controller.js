@@ -2,6 +2,7 @@
 const RoleModel = require('../models/role.model');
 
 // get all roles
+//TODO a mettre dans un service
 const findAll = (req, res) => {
     RoleModel.find()
         .then((roles) => {

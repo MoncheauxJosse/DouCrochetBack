@@ -1,5 +1,7 @@
 const AdresseModel = require('../models/address.model')
 
+//TODO a mettre dans un service
+
 const insert = async function(req, res){
         const adresseCreate = new AdresseModel({
             country:req.body.country,

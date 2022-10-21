@@ -1,7 +1,8 @@
-Post http://localhost:5000/users/login
+POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
     "email": "elisa@test.fr",
-    "password": "ceciestunexemple"
+    "password": "exemple"
 }
+
