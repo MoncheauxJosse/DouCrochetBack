@@ -10,6 +10,7 @@ const Schema = mongoose.Schema;
     },
     price: {
         type: Number,
+        min: 0,
         required: true
     },
     description: {
@@ -25,6 +26,8 @@ const Schema = mongoose.Schema;
     },
     quantity: {
         type: Number,
+        min: 1,
+        required: true
     },
     tva: [{
         type: Schema.Types.ObjectId,
