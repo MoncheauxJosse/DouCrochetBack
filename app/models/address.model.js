@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('./addresscategory.model');
+
 
 const Schema = mongoose.Schema;
 
@@ -21,7 +21,7 @@ const Address = new Schema({
         required: true
     },
     number: {
-        type: Number,
+        type: String,
         required: true
     }
 })

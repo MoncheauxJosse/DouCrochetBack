@@ -5,6 +5,11 @@ const mongoose = require("mongoose");
 const mongoDB = "mongodb://localhost:27017/DouCrochet";
 const User = require('./app/services/newUser')
 const produstRoute = require('./app/services/newProduct')
+const roleRoute = require('./app/routes/role.router')
+const userRoute = require('./app/routes/user.router')
+
+
+const rolecontroller = require('./app/controllers/role.controller')
 
 mongoose.connect(mongoDB).then(r => {
     console.log('Connected to MongoDB')
@@ -19,8 +24,8 @@ const PORT = serverConfig.PORT || 5000
 const app = express()
 
 const corsOptions = {
-    origin:'http://localhost:5173/', 
-    credentials: true, 
+    origin:'*',
+    credentials: true,
     optionsSuccessStatus:200,
     methods: "*"
 }
@@ -29,16 +34,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json())
 
-app.use("/users", userRouter);
-
-//Utilisation d'un middleware json
-app.use(express.json())
-
-// a modifier , il faut que cors n'accepte que le front doucrochet 
-app.use(cors({origin:"*"}))
-
-
-app.get('/api',(req,res) => res.status(200).send({message : 'test server'}))
+app.use("/role", roleRoute)
+app.use("/users", userRoute)
 
 //appel la route ProductRoute
 app.use('/creerProduit',produstRoute)
