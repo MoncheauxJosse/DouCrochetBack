@@ -1,6 +1,6 @@
 const express = require('express')
-const cors = require('cors')
 const serverConfig = require('./app/config/server.config')
+const cors = require('cors')
 const mongoose = require("mongoose");
 const mongoDB = "mongodb://localhost:27017/DouCrochet";
 const User = require('./app/services/newUser')
