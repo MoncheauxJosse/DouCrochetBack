@@ -1,11 +1,11 @@
 
-const UserModel = require('../models/user.model');
+const userModel = require('../models/user.model');
 const Role = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
 const AdresseController = require('../controllers/adresse.controller')
-const User = require('../models/user.model');
 const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
+const userService = require('../services/user.service');
 
 const insert =  async (req, res) => {
     if(!req.body){
@@ -14,33 +14,20 @@ const insert =  async (req, res) => {
         });
     }
     let password = "";
-    if(req.body.password===req.body.Confirmpassword){
-        
+    if(req.body.password===req.body.confirmpassword){       
         password = bcrypt.hashSync(req.body.password, 10);
     }
     //Verification du role en BDD
-    //TODO: A revoir créer service role adresse et user
     const role = await Role.findByRole("client")
     //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
     const adresseCreate = await AdresseController.insert(req)
-    //création et insert de mon user dans la BDD
-    const User = new UserModel({ 
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        telephone: req.body.telephone,
-        password: password,
-        birthdate:req.body.birthdate,
-        role:role[0]._id,
-        adresse:adresseCreate._id
-    });
-    User.save()
-    res.send({
-        message : 'Compte créé, veuillez vous connecter'})
+    //insert user dans la bdd
+    const newUser = await userService.insert(req, password, role, adresseCreate, res)
+    if(newUser){
+        return send(res)
+    }
     }
 
-//On récupère les utilisateurs
-//TODO: A revoir a placer dans un service
 const findAll = (req, res) => {
     User.find()
         .then((user) => {
@@ -56,8 +43,8 @@ const findAll = (req, res) => {
 //On vérifie si le mail et le mdp sont les mêmes dans la bdd
 const checkUser = asyncHandler(async (req, res) => {
         const {email, password} = req.body
-        const user = await User.findOne({email});
-        if(user && await user.matchPassword(password)){
+        const user = await userModel.findOne({email});
+        if(user && await userModel.matchPassword(password)){
             res.json({
                 _id: user._id,
                 firstname: user.firstname,
@@ -73,7 +60,7 @@ const checkUser = asyncHandler(async (req, res) => {
     })
 
 const profileUser = asyncHandler(async (req, res) => {
-        const user = await User.findById(req.user._id)
+        const user = await userModel.findById(req.user._id)
             if(user){
             res.json({
                 _id: user._id,
