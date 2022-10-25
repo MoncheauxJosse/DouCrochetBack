@@ -1,4 +1,3 @@
-
 const RoleModel = require('../models/role.model');
 
 // get all roles
@@ -14,6 +13,7 @@ const findAll = (req, res) => {
             });
         });
 }
+
 
 const insert = (req, res) => {
     // Validate request

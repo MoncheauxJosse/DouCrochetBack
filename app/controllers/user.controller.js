@@ -1,11 +1,11 @@
-
-const UserModel = require('../models/user.model');
 const Role = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
 const AdresseController = require('../controllers/adresse.controller')
 const User = require('../models/user.model');
 const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
+const jwtSecurity = require('../security/jwt.security');
+const roleService = require('../services/role.service')
 
 const insert =  async (req, res) => {
     if(!req.body){
@@ -22,7 +22,7 @@ const insert =  async (req, res) => {
     //TODO: A revoir créer service role adresse et user
     const role = await Role.findByRole("client")
     //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
-    const adresseCreate = await AdresseController.insert(req)
+    const adresseCreate = await adresseController.insert(req)
     //création et insert de mon user dans la BDD
     const User = new UserModel({ 
         firstname: req.body.firstname,
@@ -34,7 +34,8 @@ const insert =  async (req, res) => {
         role:role[0]._id,
         adresse:adresseCreate._id
     });
-    User.save()
+    // userModel.plugin(mongooseDisabled);
+    User.save();
     res.send({
         message : 'Compte créé, veuillez vous connecter'})
     }
@@ -42,7 +43,7 @@ const insert =  async (req, res) => {
 //On récupère les utilisateurs
 //TODO: A revoir a placer dans un service
 const findAll = (req, res) => {
-    User.find()
+    userModel.find()
         .then((user) => {
             res.status(200).send(user);
         })
@@ -55,25 +56,25 @@ const findAll = (req, res) => {
 
 //On vérifie si le mail et le mdp sont les mêmes dans la bdd
 const checkUser = asyncHandler(async (req, res) => {
-        const {email, password} = req.body
-        const user = await User.findOne({email});
-        if(user && await user.matchPassword(password)){
-            res.json({
-                _id: user._id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                token: generateToken(user._id)
-            })
-
-        }else{
-            res.status(401)
-            throw new Error("Invalid Email or Password")
-        }
+    const {email, password} = req.body
+    const user = await User.findOne({email}).populate('role');
+    console.log(user)
+    if(user && await user.matchPassword(password)){
+    res.json({
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        token: generateToken(user.email, user.role.role)
     })
+    }else{
+        res.status(401)
+        throw new Error("Invalid Email or Password")
+    }
+})
 
 const profileUser = asyncHandler(async (req, res) => {
-        const user = await User.findById(req.user._id)
+        const user = await userModel.findById(req.user._id)
             if(user){
             res.json({
                 _id: user._id,
