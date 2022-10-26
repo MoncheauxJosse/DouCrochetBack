@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 require('./role.model');
 const bcrypt = require('bcryptjs')
 
-const Schema = mongoose.Schema;
-
- const User = new Schema({
+ const UserModel = new mongoose.Schema({
     firstname: {
         type: String,
         required: true,
@@ -33,23 +31,29 @@ const Schema = mongoose.Schema;
         required: true,
     },
     role: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'role',
         required: true
     },
     adresse: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Address',
     },
      orders: [{
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
      }]
-})
+}, 
+// {
+//     disabled: false
+// }
+)
 
-User.methods.matchPassword = async function (enterPassword){
-    return bcrypt.compare(enterPassword, this.password);
-    //return enterPassword === this.password
+UserModel.methods.matchPassword = async function (enterPassword){
+    return await bcrypt.compare(enterPassword, this.password);
 }
+// UserModel.methods.toto = function(){
+//     console.log(this.firstname)
+// }
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', UserModel);
