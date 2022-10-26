@@ -2,10 +2,8 @@ const Role = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
 const AdresseController = require('../controllers/adresse.controller')
 const User = require('../models/user.model');
-const asyncHandler = require("express-async-handler");
-const generateToken = require('../security/jwt.security');
 const jwtSecurity = require('../security/jwt.security');
-const roleService = require('../services/role.service')
+const userService = require('../services/user.service');
 
 const insert =  async (req, res) => {
     if(!req.body){
@@ -41,51 +39,25 @@ const insert =  async (req, res) => {
     }
 
 //On récupère les utilisateurs
-//TODO: A revoir a placer dans un service
-const findAll = (req, res) => {
-    userModel.find()
-        .then((user) => {
-            res.status(200).send(user);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || 'Some error occurred while retrieving users.',
-            });
+const findAll = async (req, res) => {
+    await userService.findAll(req)
+    .then((user) => {
+        res.status(200).send(user);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err.message || 'Some error occurred while retrieving users.',
         });
+    });
 }
 
 //On vérifie si le mail et le mdp sont les mêmes dans la bdd
-const checkUser = asyncHandler(async (req, res) => {
-    const {email, password} = req.body
-    const user = await User.findOne({email}).populate('role');
-    console.log(user)
-    if(user && await user.matchPassword(password)){
-    res.json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        token: generateToken(user.email, user.role.role)
-    })
-    }else{
-        res.status(401)
-        throw new Error("Invalid Email or Password")
-    }
-})
+const checkUser = async (req, res) => {
+    return await userService.checkUser(req, res)
+}
 
-const profileUser = asyncHandler(async (req, res) => {
-        const user = await userModel.findById(req.user._id)
-            if(user){
-            res.json({
-                _id: user._id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email
-            })
-        }else{
-            res.status(404);
-            throw new Error("Utilisateur non trouvé");
-        }
-    })
+const profileUser = async (req, res) => {
+    return await userService.profileUser(req);
+}
 
 module.exports = {findAll, checkUser, profileUser, insert}
