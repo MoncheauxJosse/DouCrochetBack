@@ -23,7 +23,11 @@ const insert = (req, res) => {
         });
     }
     // Create a Role
-    const role = new RoleModel({ ...req.body });
+    // const role = new RoleModel({ ...req.body });
+    const role = new RoleModel({
+        role : "admin"
+    })
+    RoleModel.save();
     // Save Role in the database
     RoleModel.create(role, (err, data) => {
         if (err)

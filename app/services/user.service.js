@@ -12,15 +12,15 @@ const checkUser = asyncHandler(async(req, res)=>{
     const {email, password} = req.body
     const user = await User.findOne({email}).populate('role');
     if(user && await user.matchPassword(password)){
-    res.json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        token: generateToken(user.email, user.role.role)
-    })
+        res.json({
+            _id: user._id,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            token: generateToken(user.email, user.role.role)
+        })
     }else{
-        res.status(401)
+        res.status(401).send("Utilisateur non trouvé")
     }
 })
 
@@ -40,10 +40,23 @@ const profileUser = asyncHandler(async(req, res) => {
 })
 
 // Anonymiser un utilisateur
+
 const deleteUser = () => {
-    var newvalues = {
-        $set: {firstname: "xxxxx", lastname: "xxxxxx"}
-    }
+    User.findOne().populate("Address")
+    User.updateMany({}, {
+        $set: {
+            firstname: "xxxxx", 
+            lastname: "xxxxxx",
+            telephone: "xxxxxxxxxx",
+            email: "anonyme" + _id + "@anonyme.fr",
+            adresse: {
+                street: "xxxxxx",
+                number: "xxxxxxx"
+            },
+            disabled: true
+        }
+    })
+    User.save();
 }
 
-module.exports = {findAll, checkUser, profileUser};
+module.exports = {findAll, checkUser, profileUser, deleteUser};

@@ -30,7 +30,7 @@ const insert =  async (req, res) => {
         password: password,
         birthdate:req.body.birthdate,
         role:role[0]._id,
-        adresse:adresseCreate._id
+        adresse:adresseCreate._id,
     });
     // userModel.plugin(mongooseDisabled);
     User.save();
@@ -60,4 +60,8 @@ const profileUser = async (req, res) => {
     return await userService.profileUser(req);
 }
 
-module.exports = {findAll, checkUser, profileUser, insert}
+const deleteUser = () => {
+    return userService.deleteUser();
+}
+
+module.exports = {findAll, checkUser, profileUser, insert, deleteUser}
