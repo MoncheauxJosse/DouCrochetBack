@@ -1,12 +1,10 @@
-
-const UserModel = require('../models/user.model');
-const roleController = require('../controllers/role.controller')
+const Role = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
-const adresseController = require('../controllers/adresse.controller')
+const User = require('../models/user.model');
 const asyncHandler = require("express-async-handler");
-const userService = require('../services/user.service');
 const generateToken = require('../security/jwt.security');
-const jwtSecurity = require('../security/jwt.security');
+const userService = require('../services/user.service');
+
 
 const insert =  async (req, res, err) => {
     // .then() => qu'est ce que je fais si ça passe
@@ -25,55 +23,26 @@ const insert =  async (req, res, err) => {
         
         })
 }
-
-const findAll = (req, res) => {
-    User.find()
-        .then((user) => {
-            res.status(200).send(user);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: err.message || 'Some error occurred while retrieving users.',
-            });
+//On récupère les utilisateurs
+const findAll = async (req, res) => {
+    await userService.findAll(req)
+    .then((user) => {
+        res.status(200).send(user);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err.message || 'Some error occurred while retrieving users.',
         });
+    });
 }
 
 //On vérifie si le mail et le mdp sont les mêmes dans la bdd
-const checkUser = asyncHandler(async (req, res) => {
-        // const {email, password} = req.body
-        
-        const user = await UserModel.find({email:req.body.email});
-       //const role = await roleController.findByRole(user[0].role);
-       // return user
-        if(user && await userService.matchPassword(req.body.password, user[0].password)){
-        console.log("password verifier")
-            // res.json({
-            //     _id: user._id,
-            //     firstname: user.firstname,
-            //     lastname: user.lastname,
-            //     email: user.email,
-            //     token: generateToken(user._id)
-            // })
+const checkUser = async (req, res) => {
+    return await userService.checkUser(req, res)
+}
 
-        }else{
-            res.status(401)
-            throw new Error("Invalid Email or Password")
-        }
-    })
-
-const profileUser = asyncHandler(async (req, res) => {
-        const user = await userModel.findById(req.user._id)
-            if(user){
-            res.json({
-                _id: user._id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email
-            })
-        }else{
-            res.status(404);
-            throw new Error("Utilisateur non trouvé");
-        }
-    })
+const profileUser = async (req, res) => {
+    return await userService.profileUser(req);
+}
 
 module.exports = {findAll, checkUser, profileUser, insert}
