@@ -17,7 +17,7 @@ const checkPass = (req, res) => {
 }
 
 const insert =  async (req, res) => {
-    const password = checkPass(req);
+    const password = bcrypt.hashSync(req.body.password, 10)
     const role = await roleService.findOneRole('client');
     const adresse = await adresseservice.insert(req, res)
     const session = {password, role, adresse}
@@ -36,11 +36,34 @@ const insert =  async (req, res) => {
     return user.email
     }
 }
-
+const insertAdmin = async ()=>{
+    const password = bcrypt.hashSync("test", 10);
+    const role = await roleService.findOneRole('admin');
+    const roleadmin = await findOneUser(role._id);
+    const adresse = await adresseservice.AdressAdmin("admincountry","admincity","admincitycode","adminstreet","1")
+    const session = {password, role, adresse}
+    if(session){
+        const user = new User({ 
+                firstname: "admin",
+                lastname: "admin",
+                email: "admin@admin.fr",
+                telephone: "xxxxx",
+                password: password,
+                birthdate:"09090909",
+                role:role._id,
+                adresse:adresse._id
+        });
+        await user.save()
+    return "ok"
+    }
+}
 
 const findAll = async ()  => {
  return await User.find().populate("role");
 }
+const findOneUser = async function (role) {
+    return await User.find({role:role});
+   }
 
 //Vérifier l'email et le mot de passe de l'utilisateur
 const checkUser = asyncHandler(async(req, res)=>{
@@ -81,4 +104,4 @@ const deleteUser = () => {
     }
 }
 
-module.exports = {findAll, checkUser, profileUser, insert};
+module.exports = {findAll, checkUser, profileUser, insert, insertAdmin, findOneUser};

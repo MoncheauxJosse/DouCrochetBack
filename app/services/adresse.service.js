@@ -18,4 +18,23 @@ const insert = async function(req, res){
         });
     }
 }
-module.exports = {insert}
+
+const AdressAdmin = async function(country, city, citycode, street,number){
+    const adresseCreate = new adressModel({
+        country:country,
+        city:city,
+        cityCode:citycode,
+        street:street,
+        number:number,
+    })
+    if(adresseCreate){
+        const adresseSave = await adresseCreate.save()
+        return adresseSave
+    }
+    else{
+        res.send({
+            message :'Un ou plusieur champs de votre adresse non invalide'
+        });
+    }
+}
+module.exports = {insert, AdressAdmin}
