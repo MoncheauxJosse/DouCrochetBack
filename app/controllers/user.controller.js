@@ -1,43 +1,28 @@
 const Role = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
-const AdresseController = require('../controllers/adresse.controller')
 const User = require('../models/user.model');
-const jwtSecurity = require('../security/jwt.security');
+const asyncHandler = require("express-async-handler");
+const generateToken = require('../security/jwt.security');
 const userService = require('../services/user.service');
 
-const insert =  async (req, res) => {
-    if(!req.body){
-        res.status(500).send({
-            message: 'Le champ ne peut être vide!',
-        });
-    }
-    let password = "";
-    if(req.body.password===req.body.Confirmpassword){
-        
-        password = bcrypt.hashSync(req.body.password, 10);
-    }
-    //Verification du role en BDD
-    //TODO: A revoir créer service role adresse et user
-    const role = await Role.findByRole("client")
-    //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
-    const adresseCreate = await adresseController.insert(req)
-    //création et insert de mon user dans la BDD
-    const User = new UserModel({ 
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        telephone: req.body.telephone,
-        password: password,
-        birthdate:req.body.birthdate,
-        role:role[0]._id,
-        adresse:adresseCreate._id
-    });
-    // userModel.plugin(mongooseDisabled);
-    User.save();
-    res.send({
-        message : 'Compte créé, veuillez vous connecter'})
-    }
 
+const insert =  async (req, res, err) => {
+    // .then() => qu'est ce que je fais si ça passe
+    //.catch => ce que je fais si ça cass
+    await userService.insert(req, res)
+        .then((user)=> {
+            res.status(200).send({
+                message : 'Votre compte a été créer',
+                user,
+            })
+        }
+        ).catch(() => {
+            res.status(500).send({
+                message: "un probleme est survenu",
+            });
+        
+        })
+}
 //On récupère les utilisateurs
 const findAll = async (req, res) => {
     await userService.findAll(req)

@@ -1,12 +1,13 @@
-POST http://localhost:5000/user/insert 
+POST http://localhost:5000/users/register
 Content-Type: application/json
-
+ 
     {
         "firstname": "max",
         "lastname": "Lebon",
-        "email": "test@gmail.com",
+        "email": "test2@gmail.com",
         "telephone": "0606060606",
         "password": "test",
+        "confirmpassword": "test",
         "birthdate": "23091991",
         "adresse": "4 rue dupont lille",
         "country":"france",
@@ -15,3 +16,9 @@ Content-Type: application/json
         "street":"Rue jean",
         "number": "3"
     }
+
+
+# {
+#     "email" : "test2@gmail.com",
+#     "password": "test2"
+# }

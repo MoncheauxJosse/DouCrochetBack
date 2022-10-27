@@ -52,8 +52,5 @@ const bcrypt = require('bcryptjs')
 UserModel.methods.matchPassword = async function (enterPassword){
     return await bcrypt.compare(enterPassword, this.password);
 }
-// UserModel.methods.toto = function(){
-//     console.log(this.firstname)
-// }
 
 module.exports = mongoose.model('User', UserModel);

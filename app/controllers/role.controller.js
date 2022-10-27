@@ -1,3 +1,4 @@
+
 const RoleModel = require('../models/role.model');
 
 // get all roles
@@ -53,7 +54,11 @@ const findOne = (req, res) => {
 }
 
 const findByRole = async function(role){
-   return await RoleModel.find({role:role})
+   return await roleService.findByRole(role)
 }
 
-module.exports = {findAll, insert, findOne, findByRole}
+const findbyObjectID = async function(req){
+    return await roleService.findbyObjectID(req)
+}
+
+module.exports = {findAll, insert, findOne, findByRole, findbyObjectID}
