@@ -8,6 +8,5 @@ router.get("/", UserController.findAll)
 router.post("/login", UserController.checkUser)
 router.get("/profile", protect, UserController.profileUser)
 router.post("/register", UserController.insert)
-// routers.get("/:id", controller.findOne)
 
 module.exports = router

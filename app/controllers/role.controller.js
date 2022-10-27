@@ -56,4 +56,8 @@ const findByRole = async function(role){
    return await roleService.findByRole(role)
 }
 
-module.exports = {findAll, insert, findOne, findByRole}
+const findbyObjectID = async function(req){
+    return await roleService.findbyObjectID(req)
+}
+
+module.exports = {findAll, insert, findOne, findByRole, findbyObjectID}

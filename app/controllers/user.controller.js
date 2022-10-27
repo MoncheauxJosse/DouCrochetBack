@@ -1,32 +1,30 @@
 
-const userModel = require('../models/user.model');
-const Role = require('../controllers/role.controller')
+const UserModel = require('../models/user.model');
+const roleController = require('../controllers/role.controller')
 const bcrypt = require('bcryptjs')
-const AdresseController = require('../controllers/adresse.controller')
+const adresseController = require('../controllers/adresse.controller')
 const asyncHandler = require("express-async-handler");
-const generateToken = require('../security/jwt.security');
 const userService = require('../services/user.service');
+const generateToken = require('../security/jwt.security');
+const jwtSecurity = require('../security/jwt.security');
 
-const insert =  async (req, res) => {
-    if(!req.body){
-        res.status(500).send({
-            message: 'Le champ ne peut être vide!',
-        });
-    }
-    let password = "";
-    if(req.body.password===req.body.confirmpassword){       
-        password = bcrypt.hashSync(req.body.password, 10);
-    }
-    //Verification du role en BDD
-    const role = await Role.findByRole("client")
-    //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
-    const adresseCreate = await AdresseController.insert(req)
-    //insert user dans la bdd
-    const newUser = await userService.insert(req, password, role, adresseCreate, res)
-    if(newUser){
-        return send(res)
-    }
-    }
+const insert =  async (req, res, err) => {
+    // .then() => qu'est ce que je fais si ça passe
+    //.catch => ce que je fais si ça cass
+    await userService.insert(req, res)
+        .then((user)=> {
+            res.status(200).send({
+                message : 'Votre compte a été créer',
+                user,
+            })
+        }
+        ).catch(() => {
+            res.status(500).send({
+                message: "un probleme est survenu",
+            });
+        
+        })
+}
 
 const findAll = (req, res) => {
     User.find()
@@ -42,16 +40,20 @@ const findAll = (req, res) => {
 
 //On vérifie si le mail et le mdp sont les mêmes dans la bdd
 const checkUser = asyncHandler(async (req, res) => {
-        const {email, password} = req.body
-        const user = await userModel.findOne({email});
-        if(user && await userModel.matchPassword(password)){
-            res.json({
-                _id: user._id,
-                firstname: user.firstname,
-                lastname: user.lastname,
-                email: user.email,
-                token: generateToken(user._id)
-            })
+        // const {email, password} = req.body
+        
+        const user = await UserModel.find({email:req.body.email});
+       //const role = await roleController.findByRole(user[0].role);
+       // return user
+        if(user && await userService.matchPassword(req.body.password, user[0].password)){
+        console.log("password verifier")
+            // res.json({
+            //     _id: user._id,
+            //     firstname: user.firstname,
+            //     lastname: user.lastname,
+            //     email: user.email,
+            //     token: generateToken(user._id)
+            // })
 
         }else{
             res.status(401)
