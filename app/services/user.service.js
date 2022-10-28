@@ -1,7 +1,9 @@
-const User = require('../models/user.model')
+const User = require('../models/user.model');
+const Address = require('../models/address.model');
 const Role = require('../controllers/role.controller');
 const asyncHandler = require('express-async-handler');
 const generateToken = require('../security/jwt.security');
+const adresseController = require('../controllers/adresse.controller');
 
 const findAll = async ()  => {
  return await User.find().populate("role");
@@ -41,22 +43,26 @@ const profileUser = asyncHandler(async(req, res) => {
 
 // Anonymiser un utilisateur
 
-const deleteUser = () => {
-    User.findOne().populate("Address")
-    User.updateMany({}, {
-        $set: {
-            firstname: "xxxxx", 
-            lastname: "xxxxxx",
-            telephone: "xxxxxxxxxx",
-            email: "anonyme" + _id + "@anonyme.fr",
-            adresse: {
-                street: "xxxxxx",
-                number: "xxxxxxx"
-            },
-            disabled: true
+const deleteUser = async (id) => {
+    User.findByIdAndUpdate(id, {
+        firstname: "xxxxx", 
+        lastname: "xxxxxx",
+        telephone: "xxxxxxxxxx",
+        email: "anonyme" + id + "@anonyme.fr",
+        disabled: true
+    },
+     async function (err, docs) {
+        if (err){
+            console.log(err)
         }
-    })
-    User.save();
+        else{
+            console.log("Updated User : ", docs.adresse.toString());
+            await Address.findOneAndUpdate(docs.adresse, {
+            street: "xxxx",
+            number: "xxxx"
+           }) 
+        }
+    })  
 }
 
 module.exports = {findAll, checkUser, profileUser, deleteUser};

@@ -20,9 +20,9 @@ const insert =  async (req, res) => {
     //TODO: A revoir créer service role adresse et user
     const role = await Role.findByRole("client")
     //verification de la validité de l'adresse Email et si elle éxiste ou pas en BDD
-    const adresseCreate = await adresseController.insert(req)
+    const adresseCreate = await AdresseController.insert(req)
     //création et insert de mon user dans la BDD
-    const User = new UserModel({ 
+    const user = new User({ 
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
@@ -33,7 +33,7 @@ const insert =  async (req, res) => {
         adresse:adresseCreate._id,
     });
     // userModel.plugin(mongooseDisabled);
-    User.save();
+    user.save();
     res.send({
         message : 'Compte créé, veuillez vous connecter'})
     }
@@ -60,8 +60,8 @@ const profileUser = async (req, res) => {
     return await userService.profileUser(req);
 }
 
-const deleteUser = () => {
-    return userService.deleteUser();
+const deleteUser = (req, res) => {
+    return userService.deleteUser(req.params.id);
 }
 
 module.exports = {findAll, checkUser, profileUser, insert, deleteUser}
