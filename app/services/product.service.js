@@ -13,4 +13,4 @@ const findOneProduct = async(req)=>{
      return callOneProduct
 
 }
-module.exports = {findAll, findOne, create};
+module.exports = {findAll, findOneProduct, create};

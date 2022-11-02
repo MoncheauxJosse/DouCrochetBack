@@ -45,4 +45,8 @@ const profileUser = async (req, res) => {
     return await userService.profileUser(req);
 }
 
-module.exports = {findAll, checkUser, profileUser, insert}
+const deleteUser = (req, res) => {
+    return userService.deleteUser(req.params.id);
+}
+
+module.exports = {findAll, checkUser, profileUser, insert, deleteUser}

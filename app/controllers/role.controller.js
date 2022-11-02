@@ -1,8 +1,6 @@
 
 const RoleModel = require('../models/role.model');
 
-// get all roles
-//TODO a mettre dans un service
 const findAll = (req, res) => {
     RoleModel.find()
         .then((roles) => {
@@ -24,7 +22,11 @@ const insert = (req, res) => {
         });
     }
     // Create a Role
-    const role = new RoleModel({ ...req.body });
+    // const role = new RoleModel({ ...req.body });
+    const role = new RoleModel({
+        role : "admin"
+    })
+    RoleModel.save();
     // Save Role in the database
     RoleModel.create(role, (err, data) => {
         if (err)

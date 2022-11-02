@@ -39,14 +39,15 @@ const bcrypt = require('bcryptjs')
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Address',
     },
-     orders: [{
+    orders: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
-     }]
+    }], 
+    disabled: {
+        type: Boolean,
+        default: false
+    }
 }, 
-// {
-//     disabled: false
-// }
 )
 
 UserModel.methods.matchPassword = async function (enterPassword){
