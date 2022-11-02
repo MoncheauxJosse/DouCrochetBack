@@ -14,7 +14,7 @@ const findAllNouveau = async (req,res) => {
             return new Date(b.creation_date)-new Date(a.creation_date)
         }) 
          //return les 7 dernier produit créer
-            res.send(result.slice(0, 7))
+            res.send(result.slice(0, 10))
         }).catch(err => res.send(err));
     };
 

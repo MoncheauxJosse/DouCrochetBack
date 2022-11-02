@@ -3,19 +3,31 @@ const serverConfig = require('./app/config/server.config')
 const cors = require('cors')
 const mongoose = require("mongoose");
 const BddCreate = require('./app/scripts/createBdd.script') 
-
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
 
-const mongoDB = "mongodb://localhost:27017/DouCrochet";
+// const mongoDB = process.env.DB_LOCAL;
+const url = process.env.DB_LIVE;
 const PORT = serverConfig.PORT || 5000
 const app = express()
 
-mongoose.connect(mongoDB).then(r => {
-    console.log('Connected to MongoDB')
+const connectionParams={
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+}
+// Pour se connecter en local
+// mongoose.connect(mongoDB).then(r => {
+//     console.log('Connected to MongoDB')
+// });
+
+// Pour se connecter au live
+mongoose.connect(url, connectionParams).then(() => {
+    console.log("Connected to MongoDB")
+})
+.catch( (err) => {
+    console.error(`Error connecting to the database. n${err}`);
 });
-// Get the default connection
 
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)

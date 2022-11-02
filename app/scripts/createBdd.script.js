@@ -15,7 +15,6 @@ const insertRoleBDD = async ()=>{
         }
         else{
             console.log("erreur")
-
         }
     }
     else{
