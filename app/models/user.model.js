@@ -48,8 +48,8 @@ const Schema = mongoose.Schema;
 })
 
 User.methods.matchPassword = async function (enterPassword){
-    // return bcrypt.compare(enterPassword, this.password);
-    return enterPassword === this.password
+    return bcrypt.compare(enterPassword, this.password);
+    // return enterPassword === this.password
 }
 
 module.exports = mongoose.model('User', User);

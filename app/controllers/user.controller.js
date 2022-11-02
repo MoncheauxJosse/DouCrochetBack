@@ -40,9 +40,11 @@ const insert =  async (req, res) => {
     }
 
 //On récupère les utilisateurs
+
+//récup objectId du role pour chaque user
 //TODO: A revoir a placer dans un service
 const findAll = (req, res) => {
-    User.find()
+    User.find().populate("role")
         .then((user) => {
             res.status(200).send(user);
         })
