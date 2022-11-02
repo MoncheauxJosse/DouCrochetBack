@@ -16,20 +16,20 @@ const create = (req, res) => {
     })
 }
 
-// const findOne = (req, res) => {
-//     ProductModel.findById(req.params.id, (err, data) => {
-//         if (err) {
-//             if (err.kind === 'not_found') {
-//                 res.status(404).send({
-//                     message: `Not found Role with id ${req.params.id}.`,
-//                 });
-//             } else {
-//                 res.status(500).send({
-//                     message: `Error retrieving Role with id ${req.params.id}`,
-//                 });
-//             }
-//         } else res.send(data);
-//     });
-// }
-module.exports = {findAll, create};
+const findOne = (req, res) => {
+    ProductService.findOneProduct(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === 'not_found') {
+                res.status(404).send({
+                    message: `Not found Product with id ${req.params.id}.`,
+                });
+            } else {
+                res.status(500).send({
+                    message: `Error retrieving Product with id ${req.params.id}`,
+                });
+            }
+        } else res.send(data);
+    });
+}
+module.exports = {findAll, findOne, create};
 

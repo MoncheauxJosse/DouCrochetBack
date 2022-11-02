@@ -6,6 +6,6 @@ const routers = express.Router()
 
 routers.get("/", productController.findAll);
 routers.post("/", productController.create);
-// routers.get("/:id", controller.findOne)
+routers.get("/detail/:id", productController.findOne)
 
 module.exports = routers
