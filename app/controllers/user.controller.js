@@ -23,6 +23,7 @@ const insert =  async (req, res, err) => {
         
         })
 }
+
 //On récupère les utilisateurs
 const findAll = async (req, res) => {
     await userService.findAll(req)

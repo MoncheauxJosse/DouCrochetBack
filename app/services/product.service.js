@@ -9,8 +9,8 @@ const create = async (body) => {
      await callProduct.save()
 }
 const findOneProduct = async(req)=>{
-     const callOneProduct = await findOne(req.params.id)
+     const callOneProduct = await products.findById(req)
      return callOneProduct
-
 }
+
 module.exports = {findAll, findOneProduct, create};
