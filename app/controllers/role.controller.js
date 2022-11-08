@@ -1,8 +1,6 @@
 
 const RoleModel = require('../models/role.model');
 
-// get all roles
-//TODO a mettre dans un service
 const findAll = (req, res) => {
     RoleModel.find()
         .then((roles) => {
@@ -15,6 +13,7 @@ const findAll = (req, res) => {
         });
 }
 
+
 const insert = (req, res) => {
     // Validate request
     if (!req.body) {
@@ -23,7 +22,11 @@ const insert = (req, res) => {
         });
     }
     // Create a Role
-    const role = new RoleModel({ ...req.body });
+    // const role = new RoleModel({ ...req.body });
+    const role = new RoleModel({
+        role : "admin"
+    })
+    RoleModel.save();
     // Save Role in the database
     RoleModel.create(role, (err, data) => {
         if (err)
@@ -53,7 +56,11 @@ const findOne = (req, res) => {
 }
 
 const findByRole = async function(role){
-   return await RoleModel.find({role:role})
+   return await roleService.findByRole(role)
 }
 
-module.exports = {findAll, insert, findOne, findByRole}
+const findbyObjectID = async function(req){
+    return await roleService.findbyObjectID(req)
+}
+
+module.exports = {findAll, insert, findOne, findByRole, findbyObjectID}
