@@ -39,6 +39,7 @@ const insert = async (req, res) => {
         return user.email
     }
 }
+
 const insertAdmin = async () => {
     const password = bcrypt.hashSync("test", 10);
     const role = await roleService.findOneRole('admin');
