@@ -7,7 +7,7 @@ const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
 
-// const mongoDB = process.env.DB_LOCAL;
+const mongoDB = process.env.DB_LOCAL;
 const url = process.env.DB_LIVE;
 const PORT = serverConfig.PORT || 5000
 const app = express()
@@ -17,17 +17,17 @@ const connectionParams={
     useUnifiedTopology: true 
 }
 // Pour se connecter en local
-// mongoose.connect(mongoDB).then(r => {
-//     console.log('Connected to MongoDB')
-// });
+mongoose.connect(mongoDB).then(r => {
+    console.log('Connected to MongoDB')
+});
 
 // Pour se connecter au live
-mongoose.connect(url, connectionParams).then(() => {
-    console.log("Connected to MongoDB")
-})
-.catch( (err) => {
-    console.error(`Error connecting to the database. n${err}`);
-});
+// mongoose.connect(url, connectionParams).then(() => {
+//     console.log("Connected to MongoDB")
+// })
+// .catch( (err) => {
+//     console.error(`Error connecting to the database. n${err}`);
+// });
 
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)

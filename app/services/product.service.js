@@ -9,4 +9,8 @@ const create = async (body) => {
      await callProduct.save()
 }
 
-module.exports = {findAll, create};
+const deleteProduct = async (obj) => {
+     await products.findByIdAndDelete(obj.id);
+}
+
+module.exports = {findAll, create, deleteProduct};
