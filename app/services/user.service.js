@@ -39,6 +39,7 @@ const insert = async (req, res) => {
         return user.email
     }
 }
+
 const insertAdmin = async () => {
     const password = bcrypt.hashSync("test", 10);
     const role = await roleService.findOneRole('admin');
@@ -145,17 +146,5 @@ const editUser = async (id) => {
 
 
 
-// async function (err, docs) {
-//     if (err) {
-//         console.log(err)
-//     }
-//     else {
-//         console.log("Updated User : ", docs.adresse.toString());
 
-//         await User.save()
-//         return role._id
-
-//     }
-// })
-// }
 module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser };
