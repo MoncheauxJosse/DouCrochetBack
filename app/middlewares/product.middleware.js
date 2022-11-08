@@ -33,24 +33,6 @@ const protectProduct = asyncHandler(
             cb(null,filename)
           },
         });
-
-
-
-       /* const filefilter = (req, file, cb) => {
-
-          console.log("passe dans le filter")
-          console.log(file)
-          console.log(cb)
-            if (
-              file.mimetype === 'image/png' ||
-              file.mimetype === 'image/jpg' ||
-              file.mimetype === 'image/jpeg'
-            ) {
-              cb(null, true);
-            } else {
-              cb(null, false);
-            }
-          };*/
           
           const upload = multer({ storage: storage });
     
