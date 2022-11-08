@@ -48,7 +48,7 @@ app.use(cors(corsOptions));
 app.use(express.json())
 
 app.use("/role", RoleRoutes)
-app.use("/users", UserRoutes)
+app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
 
 

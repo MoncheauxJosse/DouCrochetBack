@@ -3,18 +3,22 @@ const userService = require('../services/user.service')
 
 const insertRoleBDD = async ()=>{
     const exist = await roleService.findAll()
-    const role = await roleService.findOneRole('admin');
-    const adminExist = await userService.findOneUser(role._id);
-    if(adminExist.length == 0){
-        const createadmin = await userService.insertAdmin();
-    }
     if(exist.length < 3){
         const insert = await roleService.insertrole(["client","commercial","admin"])
-        if(insert=="ok" && createadmin=="ok"){
-            console.log("insertOk")
+        if(insert=="ok"){
+            console.log("Role OK")
+            const role = await roleService.findOneRole('admin');
+            const adminExist = await userService.findOneUser(role._id);
+            if(adminExist.length == 0){
+                const createadmin = await userService.insertAdmin();
+            }
+            else{
+                console.log("Admin error")
+            }
         }
         else{
-            console.log("erreur")
+            console.log("Role error")
+
         }
     }
     else{

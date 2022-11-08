@@ -35,5 +35,17 @@ const deleteProduct = (req, res) => {
         });
     })
 }
-module.exports = {findAll, create, findAllNouveau, deleteProduct};
+const findOne = (req, res) => {
+    ProductService.findOneProduct(req.params.id).then((data) => {
+      res.send(data)
+    }).catch((err)=>{
+        res.status(500).send({
+            message : "not found"
+        })
+    });
+}
+
+module.exports = {findAll, findOne, create, findAllNouveau, deleteProduct};
+
+
 
