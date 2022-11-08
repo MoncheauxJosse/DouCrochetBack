@@ -15,5 +15,13 @@ const create = async (body,image) => {
          )
      await callProduct.save()
 }
+const findOneProduct = async(req)=>{
+     const callOneProduct = await products.findById(req)
+     return callOneProduct
+}
 
-module.exports = {findAll, create};
+const deleteProduct = async (obj) => {
+     await products.findByIdAndDelete(obj.id);
+}
+
+module.exports = {findAll, create, findOneProduct, deleteProduct};

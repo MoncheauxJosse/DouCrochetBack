@@ -10,14 +10,27 @@ const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
 const { constants } = require('fs/promises');
 
-const mongoDB = "mongodb://localhost:27017/DouCrochet";
+const mongoDB = process.env.DB_LOCAL;
+const url = process.env.DB_LIVE;
 const PORT = serverConfig.PORT || 5000
 const app = express()
 
+const connectionParams={
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+}
+// Pour se connecter en local
 mongoose.connect(mongoDB).then(r => {
     console.log('Connected to MongoDB')
 });
-// Get the default connection
+
+// Pour se connecter au live
+// mongoose.connect(url, connectionParams).then(() => {
+//     console.log("Connected to MongoDB")
+// })
+// .catch( (err) => {
+//     console.error(`Error connecting to the database. n${err}`);
+// });
 
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
@@ -40,7 +53,7 @@ app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/role", RoleRoutes)
-app.use("/users", UserRoutes)
+app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
 
 
