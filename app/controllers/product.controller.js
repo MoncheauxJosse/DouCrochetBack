@@ -20,7 +20,10 @@ const findAllNouveau = async (req,res) => {
     };
 
 const create = (req, res) => {
-    ProductService.create(req.body).then((data) => {
+    console.log(req.file)
+    console.log(req.body)
+    ProductService.create(req.body,
+         req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname).then((data) => {
         res.status(201).send(data)
     }).catch((err) => {
         res.status(500).send({

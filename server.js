@@ -3,10 +3,12 @@ const serverConfig = require('./app/config/server.config')
 const cors = require('cors')
 const mongoose = require("mongoose");
 const BddCreate = require('./app/scripts/createBdd.script') 
+const path = require('path')
 
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
+const { constants } = require('fs/promises');
 
 const mongoDB = "mongodb://localhost:27017/DouCrochet";
 const PORT = serverConfig.PORT || 5000
@@ -34,6 +36,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json())
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/role", RoleRoutes)
 app.use("/users", UserRoutes)
