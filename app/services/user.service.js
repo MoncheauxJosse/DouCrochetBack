@@ -37,6 +37,7 @@ const insert =  async (req, res) => {
     return user.email
     }
 }
+
 const insertAdmin = async ()=>{
     const password = bcrypt.hashSync("test", 10);
     const role = await roleService.findOneRole('admin');
@@ -64,7 +65,7 @@ const findAll = async ()  => {
 }
 const findOneUser = async function (role) {
     return await User.find({role:role});
-   }
+}
 
 //Vérifier l'email et le mot de passe de l'utilisateur
 const checkUser = asyncHandler(async(req, res)=>{
