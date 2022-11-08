@@ -95,6 +95,6 @@ const findAllTop = async (req,res) => {
         });
     }
     
-    module.exports = {findAll, findOne, create, findAllNouveau, deleteProduct};
+    module.exports = {findAll, findOne, create, findAllNouveau, deleteProduct, findAllTop};
     
 
