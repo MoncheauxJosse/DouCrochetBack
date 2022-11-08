@@ -25,6 +25,8 @@ const insert =  async (req, res, err) => {
 }
 
 //On récupère les utilisateurs
+
+//récup objectId du role pour chaque user
 const findAll = async (req, res) => {
     await userService.findAll(req)
     .then((user) => {
@@ -49,5 +51,8 @@ const profileUser = async (req, res) => {
 const deleteUser = (req, res) => {
     return userService.deleteUser(req.params.id);
 }
+const editUser = (req, res) => {
+    return userService.editUser(req.params.id);
+}
 
-module.exports = {findAll, checkUser, profileUser, insert, deleteUser}
+module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser}

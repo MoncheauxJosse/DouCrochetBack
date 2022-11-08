@@ -9,5 +9,6 @@ router.post("/login", UserController.checkUser)
 router.put("/delete/:id", UserController.deleteUser)
 router.get("/profile", protect, UserController.profileUser)
 router.post("/register", UserController.insert)
+router.put("/modif/:id",UserController.editUser)
 
 module.exports = router
