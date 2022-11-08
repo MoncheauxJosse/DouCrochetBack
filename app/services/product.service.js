@@ -13,4 +13,8 @@ const findOneProduct = async(req)=>{
      return callOneProduct
 }
 
-module.exports = {findAll, findOneProduct, create};
+const deleteProduct = async (obj) => {
+     await products.findByIdAndDelete(obj.id);
+}
+
+module.exports = {findAll, create, findOneProduct, deleteProduct};

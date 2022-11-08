@@ -12,7 +12,7 @@ const findAllNouveau = async (req,res) => {
             return new Date(b.creation_date)-new Date(a.creation_date)
         }) 
          //return les 7 dernier produit créer
-            res.send(result.slice(0, 7))
+            res.send(result.slice(0, 10))
         }).catch(err => res.send(err));
     };
 
@@ -26,6 +26,15 @@ const create = (req, res) => {
     })
 }
 
+const deleteProduct = (req, res) => {
+    ProductService.deleteProduct(req.params).then((data) => {
+        res.status(201).send(data)
+    }).catch((err) => {
+        res.status(500).send({
+            message: err.message || 'Some error occurred while creating the Product.',
+        });
+    })
+}
 const findOne = (req, res) => {
     ProductService.findOneProduct(req.params.id).then((data) => {
       res.send(data)
@@ -36,7 +45,7 @@ const findOne = (req, res) => {
     });
 }
 
-module.exports = {findAll, findOne, create, findAllNouveau};
+module.exports = {findAll, findOne, create, findAllNouveau, deleteProduct};
 
 
 
