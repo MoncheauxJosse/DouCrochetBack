@@ -124,10 +124,6 @@ const deleteUser = async (id) => {
             }
         })
 }
-//find role
-//user
-//role: +variable
-
 
 const editUser = async (id) => {
     console.log(id);
