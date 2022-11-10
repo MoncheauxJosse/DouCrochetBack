@@ -1,5 +1,7 @@
 const roleService = require('../services/role.service')
 const userService = require('../services/user.service')
+const factureLineService= require('../services/productline.service')
+const categoryService = require('../services/category.service')
 
 const insertRoleBDD = async ()=>{
     const exist = await roleService.findAll()

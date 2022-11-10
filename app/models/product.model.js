@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
     },
     price: {
         type: Number,
-        min: 0,
+        min: 0.01,
         required: true
     },
     description: {
@@ -22,7 +22,8 @@ const Schema = mongoose.Schema;
         default: Date.now
     },
     image: {
-        type: String,
+        type: String
+       
     },
     quantity: {
         type: Number,

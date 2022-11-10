@@ -3,9 +3,13 @@ const serverConfig = require('./app/config/server.config')
 const cors = require('cors')
 const mongoose = require("mongoose");
 const BddCreate = require('./app/scripts/createBdd.script') 
+const path = require('path')
+
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
+const AdminRoutes = require('./app/routes/product.router');
+const { constants } = require('fs/promises');
 
 const mongoDB = process.env.DB_LOCAL;
 const url = process.env.DB_LIVE;
@@ -47,9 +51,12 @@ app.use(cors(corsOptions));
 
 app.use(express.json())
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use("/role", RoleRoutes)
 app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
+app.use('/admin', AdminRoutes)
 
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
