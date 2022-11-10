@@ -16,13 +16,11 @@ const protectProduct = asyncHandler(
                 //image: Joi.string().required(),
                 quantity: Joi.number()
             }) 
-
            pattern.validate(req)
-
            next()
         }
-        )
-        
+      )
+
         const storage = multer.diskStorage({
           destination: (req, file, cb) => {
             console.log("sa passe");
@@ -33,10 +31,11 @@ const protectProduct = asyncHandler(
             cb(null,filename)
           },
         });
-          
-          const upload = multer({ storage: storage });
-    
+
+        const upload = multer({ storage: storage });
+
 
     module.exports={protectProduct,upload}
-
+          
+    
 
