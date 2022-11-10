@@ -8,7 +8,11 @@ const path = require('path')
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
+
 const CategoryRoutes = require('./app/routes/category.router');
+
+const AdminRoutes = require('./app/routes/product.router');
+
 const { constants } = require('fs/promises');
 
 const mongoDB = process.env.DB_LOCAL;
@@ -56,7 +60,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/role", RoleRoutes)
 app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
+
 app.use('/products', CategoryRoutes);
+
+app.use('/admin', AdminRoutes)
+
 
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
