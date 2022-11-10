@@ -52,7 +52,8 @@ const deleteUser = (req, res) => {
     return userService.deleteUser(req.params.id);
 }
 const editUser = (req, res) => {
-    return userService.editUser(req.params.id);
+    console.log("je passe par la !", req.body.roleSelect);
+    return userService.editUser(req.params.id, req.body.roleSelect,res);
 }
 
 module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser}
