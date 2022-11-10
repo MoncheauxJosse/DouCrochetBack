@@ -12,4 +12,4 @@ const Schema = mongoose.Schema;
         ref: 'Product'
     }]
 })
-module.exports = mongoose.model('ProductCategory', ProductCategory)
+module.exports = mongoose.model('Product-Category', ProductCategory)
