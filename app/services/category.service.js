@@ -11,4 +11,9 @@ const createCategory = async (name) => {
     })
     await callCategory.save()
 }
-module.exports = {createCategory,findAll};
+
+const updateRelation =async (idCategory,idProduct) =>{
+
+    await category.updateMany({ '_id': idCategory }, { $push: { product:  idProduct } })
+}
+module.exports = {createCategory,findAll, updateRelation};
