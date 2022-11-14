@@ -7,7 +7,7 @@ const findAll = async ()  => {
 
 const createCategory = async (name) => {
     const callCategory = new category({
-        name: name,
+        name: name.name,
     })
     await callCategory.save()
 }
