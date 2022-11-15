@@ -7,6 +7,7 @@ const generateToken = require('../security/jwt.security');
 const bcrypt = require('bcryptjs');
 const roleModel = require("../models/role.model");
 const { find } = require('../models/role.model');
+const { use } = require('../routes/role.router');
 
 const checkPass = (req, res) => {
     if (req.body.password === req.body.confirmpassword) {
@@ -104,6 +105,7 @@ const profileUser = asyncHandler(async (req, res) => {
 // Anonymiser un utilisateur
 
 const deleteUser = async (id) => {
+    console.log("delet", id);
     User.findByIdAndUpdate(id, {
         firstname: "xxxxx",
         lastname: "xxxxxx",
@@ -124,16 +126,22 @@ const deleteUser = async (id) => {
             }
         })
 }
+const editUser = async (id, roleSelect, res) => {
+    const role = await roleService.findOneRole(roleSelect);
+    // const user = await User.findById(id);
+    console.log(id, role._id, "edit user");
 
-const editUser = async (id) => {
-    console.log(id);
-    User.findByIdAndUpdate(id, {
-        role: id[1]
-    }
-    .populate()
-
-
-    )
+    User.findByIdAndUpdate(id, { role: role._id },
+        function (err, user) {
+            if (err) {
+                console.log(err)
+                return res.status(400).send(err)
+            }
+            else {
+                console.log("Updated User : ", user);
+                return res.status(200).send(user)
+            }
+        })
 
 
 };

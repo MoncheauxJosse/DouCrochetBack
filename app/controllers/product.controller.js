@@ -1,4 +1,5 @@
 const ProductService = require("../services/product.service");
+
 const ProductLine = require("../services/productline.service")
 
 const findAll = async (req,res) => {
@@ -17,17 +18,19 @@ const findAllNouveau = async (req,res) => {
         }).catch(err => res.send(err));
     };
 
-const create = (req, res) => {
-    console.log(req.file)
-    console.log(req.body)
+const create = async (req, res) => {
+
+    //créer tout d'abord l 'objet produit en ajoutant les id de categorie
     ProductService.create(req.body,
-         req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname).then((data) => {
-        res.status(201).send(data)
-    }).catch((err) => {
-        res.status(500).send({
-            message: err.message || 'Some error occurred while creating the Product.',
-        });
-    })
+         req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname).then((data) => {           
+            res.status(201).send(data)
+        }).catch((err) => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while creating the Product.',
+            });
+        })
+         
+         
 }
 
 const findAllTop = async (req,res) => {

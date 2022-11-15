@@ -20,7 +20,7 @@ const protectProduct = asyncHandler(
            next()
         }
       )
-        
+
         const storage = multer.diskStorage({
           destination: (req, file, cb) => {
             console.log("sa passe");
@@ -31,10 +31,11 @@ const protectProduct = asyncHandler(
             cb(null,filename)
           },
         });
-          
+
         const upload = multer({ storage: storage });
-    
+
 
     module.exports={protectProduct,upload}
-
+          
+    
 

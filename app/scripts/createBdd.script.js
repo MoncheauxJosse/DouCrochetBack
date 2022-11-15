@@ -5,9 +5,15 @@ const categoryService = require('../services/category.service')
 
 const insertRoleBDD = async ()=>{
     const exist = await roleService.findAll()
+    const existCatégorie = await categoryService.findAll()
     if(exist.length < 3){
         const insert = await roleService.insertrole(["client","commercial","admin"])
         if(insert=="ok"){
+            if(existCatégorie.length==0){
+                const categoryTop = categoryService.createCategory('topProduit')
+                const categoryNounours = categoryService.createCategory('nounours')
+                const categoryDoudou = categoryService.createCategory('doudou')
+            }
             console.log("Role OK")
             const role = await roleService.findOneRole('admin');
             const adminExist = await userService.findOneUser(role._id);
