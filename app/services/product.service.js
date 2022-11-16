@@ -25,11 +25,11 @@ const create = async (body,image) => {
      await callProduct.save()
 }
 const findOneProduct = async(req)=>{
-     const callOneProduct = await products.findById(req)
+     return await products.findById(req)
 }
 
 const deleteProduct = async (obj) => {
-     await products.findByIdAndDelete(obj.id);
+    return await products.findByIdAndDelete(obj.id);
 }
 
 module.exports = {findAll, create, findOneProduct, deleteProduct};
