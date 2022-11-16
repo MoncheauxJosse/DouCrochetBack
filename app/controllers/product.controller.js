@@ -2,8 +2,13 @@ const ProductService = require("../services/product.service");
 
 const ProductLine = require("../services/productline.service")
 
+
 const findAll = async (req,res) => {
-   ProductService.findAll().then(response => res.send(response)).catch(err => res.send(err));
+    ProductService.findAll().then(response => res.send(response)).catch(err => res.send(err));
+ };
+ 
+const findAllPage = async (req,res) => {
+   ProductService.page(req.params.id).then(response => res.send(response)).catch(err => res.send(err));
 };
 
 const findAllNouveau = async (req,res) => {
@@ -98,6 +103,6 @@ const findAllTop = async (req,res) => {
         });
     }
     
-    module.exports = {findAll, findOne, create, findAllNouveau, deleteProduct, findAllTop};
+    module.exports = {findAll,findAllPage, findOne, create, findAllNouveau, deleteProduct, findAllTop};
     
 

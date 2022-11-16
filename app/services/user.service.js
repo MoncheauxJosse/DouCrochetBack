@@ -104,7 +104,7 @@ const profileUser = asyncHandler(async (req, res) => {
 
 // Anonymiser un utilisateur
 
-const deleteUser = async (id) => {
+const deleteUser = async (id, res) => {
     console.log("delet", id);
     User.findByIdAndUpdate(id, {
         firstname: "xxxxx",
