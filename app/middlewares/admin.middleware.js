@@ -12,13 +12,11 @@ const protectAdmin = asyncHandler(
                 tableau est le jeton. */
                 token = req.headers.authorization.split(" ")[1]
                 const decoded = jwt.verify(token, process.env.JWT_SECRET)
-                if(decoded.role=='admin'){
-                    
+                if(decoded.role=='admin'){  
                     next();
+                }else{
+                    return res.status(401).send("erreur")
                 }
-
-                /* Trouver l'utilisateur par l'identifiant dans le jeton, puis sélectionner toutes les
-                informations de l'utilisateur à l'exception du mot de passe. */
             }catch (error){
                 console.error(error);
                 res.status(401)
