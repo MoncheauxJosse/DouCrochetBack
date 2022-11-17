@@ -16,4 +16,5 @@ routers.delete("/delete/:id", protectAdmin,  productController.deleteProduct);
 routers.get("/detail/:id", productController.findOne)
 
 
+
 module.exports = routers
