@@ -4,7 +4,6 @@ const cors = require('cors')
 const mongoose = require("mongoose");
 const BddCreate = require('./app/scripts/createBdd.script') 
 const path = require('path')
-const job= require('./app/scripts/cron')
 
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
@@ -51,8 +50,7 @@ const corsOptions = {
     optionsSuccessStatus:200,
     methods: "*"
 }
-job.task()
-job.startCron()
+
 app.use(cors(corsOptions));
 
 app.use(express.json())
