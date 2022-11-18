@@ -8,7 +8,6 @@ async function task(){
 
     
     // recupere les differente categorie
-   // const existTopPRoduct =  await categoryService.findAll()
    const existTopPRoduct =  await categoryService.findOneCategoryId('topProduit')
     
     // si il n'existe pas le nom "topProduit" dans les categories
@@ -18,8 +17,6 @@ async function task(){
         //refet un findall pour recuperer toute les categorye
         existTopPRoduct =  await categoryService.findOneCategoryId('topProduit')
     }  
-
-    // il faut suprimer les top produit qui ne sont plus TOP en achat !!!!!! Populate() ?
 
     // recupere les produit etant deja topProduits
     const productTop= await ProductService.findAllSearch(existTopPRoduct[0]._id)
