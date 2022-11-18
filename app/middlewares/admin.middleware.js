@@ -12,7 +12,7 @@ const protectAdmin = asyncHandler(
                 tableau est le jeton. */
                 token = req.headers.authorization.split(" ")[1]
                 const decoded = jwt.verify(token, process.env.JWT_SECRET)
-                if(decoded.role=='admin'){    
+                if(decoded.role=='admin'){  
                     next();
                 }
                 else{

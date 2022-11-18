@@ -4,7 +4,7 @@ const protectAdmin = require('../middlewares/admin.middleware')
 
 
 const routers = express.Router()
-console.log("passe route category");
+
 
 routers.get("/create-product", categoryController.findAll);
 routers.post("/create-category", categoryController.create);
