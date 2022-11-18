@@ -73,14 +73,14 @@ const findOneUser = async function (role) {
 //Vérifier l'email et le mot de passe de l'utilisateur
 const checkUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
-    const user = await User.findOne({ email }).populate('role');
-    if (user && await user.matchPassword(password)) {
+    const user = await User.findOne({ email }).populate('role').populate('adresse');
+    if (user && await user.matchPassword(password)){
         res.json({
             _id: user._id,
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken(user.email, user.role.role)
+            token: generateToken(user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
         })
     } else {
         res.status(401).send("Utilisateur non trouvé")
