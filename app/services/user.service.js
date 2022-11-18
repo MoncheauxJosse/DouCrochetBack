@@ -116,6 +116,7 @@ const deleteUser = async (id, res) => {
         async function (err, docs) {
             if (err) {
                 console.log(err)
+                return res.status(400).send(err)
             }
             else {
                 console.log("Updated User : ", docs.adresse.toString());
@@ -123,6 +124,7 @@ const deleteUser = async (id, res) => {
                     street: "xxxx",
                     number: "xxxx"
                 })
+                return res.status(200).send(docs)
             }
         })
 }
