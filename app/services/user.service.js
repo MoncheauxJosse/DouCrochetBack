@@ -80,7 +80,7 @@ const checkUser = asyncHandler(async (req, res) => {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken(user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+            token: generateToken(user._id, user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
         })
     } else {
         res.status(401).send("Utilisateur non trouvé")
@@ -126,11 +126,26 @@ const deleteUser = async (id, res) => {
             }
         })
 }
+const updateUser = async (req, res)=>{
+    User.findByIdAndUpdate(req.params.id,{
+        firstname: req.body.values.firstname,
+        lastname: req.body.values.lastname,
+    
+    },
+        function (err, user) {
+            if (err) {
+                console.log(err)
+                return res.status(400).send(err)
+            }
+            else {
+                console.log("Updated User : ", user);
+                return res.status(200).send(user)
+            }
+        })
+}
+
 const editUser = async (id, roleSelect, res) => {
     const role = await roleService.findOneRole(roleSelect);
-    // const user = await User.findById(id);
-    console.log(id, role._id, "edit user");
-
     User.findByIdAndUpdate(id, { role: role._id },
         function (err, user) {
             if (err) {
@@ -151,4 +166,4 @@ const editUser = async (id, roleSelect, res) => {
 
 
 
-module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser };
+module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser, updateUser };

@@ -56,4 +56,9 @@ const editUser = (req, res) => {
     return userService.editUser(req.params.id, req.body.roleSelect,res);
 }
 
-module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser}
+const updateUser = (req, res) => {
+    console.log(req.body)
+    return userService.updateUser(req,res);
+}
+
+module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser, updateUser}
