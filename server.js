@@ -9,7 +9,7 @@ const job = require('./app/scripts/cron')
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
-
+const CartRoutes = require('./app/routes/cart.router')
 const CategoryRoutes = require('./app/routes/category.router');
 
 const AdminRoutes = require('./app/routes/product.router');
@@ -66,7 +66,7 @@ app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
 
 app.use('/products', CategoryRoutes);
-
+app.use("/cart", CartRoutes);
 app.use('/admin', AdminRoutes)
 
 
