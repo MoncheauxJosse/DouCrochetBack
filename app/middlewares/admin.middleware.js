@@ -14,9 +14,13 @@ const protectAdmin = asyncHandler(
                 const decoded = jwt.verify(token, process.env.JWT_SECRET)
                 if(decoded.role=='admin'){  
                     next();
-                }else{
-                    return res.status(401).send("erreur")
                 }
+                else{
+                    return res.status(401).send("Vous n'êtes pas admin")
+                }
+
+                /* Trouver l'utilisateur par l'identifiant dans le jeton, puis sélectionner toutes les
+                informations de l'utilisateur à l'exception du mot de passe. */
             }catch (error){
                 console.error(error);
                 res.status(401)
