@@ -37,7 +37,6 @@ const create = async (req,res,err)=>{
 
       // si anti duplicate a retourné false ( donc pas de doublon)
         if(duplicate[0] == false){
-            console.log(duplicate)
             const translateObject= {name: MotFinal}
             CategoryService.createCategory(translateObject).then((data) => res.status(201).send(data))
             .catch((err) => {
