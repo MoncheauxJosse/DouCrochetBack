@@ -33,10 +33,10 @@ const create = async (req,res,err)=>{
      }
       //verification antiDuplicate 
       const existTopPRoduct =  await CategoryService.findAll()
-      const duplicate = existTopPRoduct.every(o=>o.name.toLocaleLowerCase()== MotFinal.toLocaleLowerCase())
+      const duplicate = existTopPRoduct.some(o=>o.name.toLocaleLowerCase()=== MotFinal.toLocaleLowerCase())
 
       // si anti duplicate a retourné false ( donc pas de doublon)
-        if(duplicate[0] == false){
+        if(!duplicate ){           
             const translateObject= {name: MotFinal}
             CategoryService.createCategory(translateObject).then((data) => res.status(201).send(data))
             .catch((err) => {
