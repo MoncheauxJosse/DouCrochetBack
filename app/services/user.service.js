@@ -1,4 +1,4 @@
-const User = require('../models/user.model');;
+const User = require('../models/user.model');
 const Address = require('../models/address.model');
 const roleService = require('./role.service')
 const adresseservice = require('./adresse.service')
@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
 const bcrypt = require('bcryptjs');
 const roleModel = require("../models/role.model");
-const { find } = require('../models/role.model');
+const { find, findById } = require('../models/role.model');
 const { use } = require('../routes/role.router');
 
 const checkPass = (req, res) => {
@@ -80,7 +80,7 @@ const checkUser = asyncHandler(async (req, res) => {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken(user._id, user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+            token: generateToken(user._id, user.email,user.telephone, user.role, user.firstname, user.lastname, user.birthdate, user.adresse)
         })
     } else {
         res.status(401).send("Utilisateur non trouvé")
@@ -128,18 +128,30 @@ const deleteUser = async (id, res) => {
 }
 const updateUser = async (req, res)=>{
     User.findByIdAndUpdate(req.params.id,{
-        firstname: req.body.values.firstname,
-        lastname: req.body.values.lastname,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        birthdate: req.body.birthdate,
+        telephone: req.body.telephone,
+        email: req.body.email,
     
     },
-        function (err, user) {
+        async function (err, docs) {
             if (err) {
                 console.log(err)
                 return res.status(400).send(err)
             }
             else {
-                console.log("Updated User : ", user);
-                return res.status(200).send(user)
+                await Address.findOneAndUpdate(docs.adresse,{
+                    country : req.body.country,
+                    city : req.body.city,
+                    cityCode : req.body.cityCode,
+                    street: req.body.street,
+                    number: req.body.number,
+                })
+                const user = await User.findById(req.params.id).populate('adresse')
+                res.status(200).json({
+                    token: generateToken(user._id, user.email,user.telephone, user.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+                })
             }
         })
 }

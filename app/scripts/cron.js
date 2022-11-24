@@ -12,12 +12,12 @@ async function task(){
    const existTopPRoduct =  await categoryService.findOneCategoryId('topProduit')
     
     // si il n'existe pas le nom "topProduit" dans les categories
-   if(existTopPRoduct[0].name !=='topProduit'){
-        //creer la categorie
-        const categoryTop = categoryService.createCategory('topProduit')
-        //refet un findall pour recuperer toute les categorye
-        existTopPRoduct =  await categoryService.findOneCategoryId('topProduit')
-    }  
+//    if(existTopPRoduct[0].name !=='topProduit'){
+//         //creer la categorie
+//         const categoryTop = categoryService.createCategory('topProduit')
+//         //refet un findall pour recuperer toute les categorye
+//         existTopPRoduct =  await categoryService.findOneCategoryId('topProduit')
+//     }  
 
     // il faut suprimer les top produit qui ne sont plus TOP en achat !!!!!! Populate() ?
 

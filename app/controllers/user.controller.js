@@ -57,7 +57,6 @@ const editUser = (req, res) => {
 }
 
 const updateUser = (req, res) => {
-    console.log(req.body)
     return userService.updateUser(req,res);
 }
 
