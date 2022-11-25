@@ -1,12 +1,19 @@
 const jwt = require('jsonwebtoken');
 const findRole = require('../controllers/role.controller')
 
-const jwtSecurity = (email, role, firstname, lastname, birthdate, adresse) =>{
+const jwtSecurity = (id, email, role, firstname, lastname, birthdate, adresse) =>{
 
-    return jwt.sign({ email: email, role: role, firstname:firstname,lastname : lastname, birthdate : birthdate, adresse : adresse }, process.env.JWT_SECRET,
+    return jwt.sign({id:id , email: email, role: role, firstname:firstname,lastname : lastname, birthdate : birthdate, adresse : adresse }, process.env.JWT_SECRET,
         {
             expiresIn: "30d",
         });
 }
 
-module.exports = jwtSecurity;
+const decode=(token)=>{
+
+return jwt.decode(token)
+
+
+}
+
+module.exports = {jwtSecurity,decode};
