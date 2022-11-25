@@ -4,6 +4,7 @@ const factureLineService= require('../services/productline.service')
 const categoryService = require('../services/category.service')
 
 const insertRoleBDD = async ()=>{
+    
     const exist = await roleService.findAll()
     const existCatégorie = await categoryService.findAll()
     if(exist.length < 3){

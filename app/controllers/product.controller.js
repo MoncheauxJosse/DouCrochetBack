@@ -32,9 +32,7 @@ const create = async (req, res) => {
             res.status(500).send({
                 message: err.message || 'Some error occurred while creating the Product.',
             });
-        })
-         
-         
+        })                
 }
 
 const findAllTop = async (req,res) => {

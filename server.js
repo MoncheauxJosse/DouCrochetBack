@@ -10,7 +10,7 @@ const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
 const CategoryRoutes = require('./app/routes/category.router');
-
+const OrderRoutes = require('./app/routes/order.router');
 const AdminRoutes = require('./app/routes/product.router');
 
 const { constants } = require('fs/promises');
@@ -65,6 +65,8 @@ app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
 app.use('/products', CategoryRoutes);
 app.use('/admin', AdminRoutes)
+
+app.use('/support', OrderRoutes)
 
 
 
