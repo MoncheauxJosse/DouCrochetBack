@@ -8,8 +8,8 @@ const findAllFactureUser = async (req,res) => {
     // recuper le token , il faut le decoder
     let rep = token.decode(req.params.id)
 
-    console.log(rep.id)
-   let OrderUser = await OrderService.findUser(rep.id)
+    console.log(rep)
+   let OrderUser = await OrderService.findUser(rep._id)
 
    if(OrderUser.length ==0){
 
