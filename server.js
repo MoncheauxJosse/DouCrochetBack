@@ -52,8 +52,8 @@ const corsOptions = {
     methods: "*"
 }
 
-// job.task()
-// job.startCron()
+job.task()
+job.startCron()
 
 app.use(cors(corsOptions));
 
