@@ -21,10 +21,9 @@ const Order = new Schema({
         required: true
     },
     order_delivery: {
-        type: Date,
-        required: true
+        type: Date
     },
-    address: {
+    addresse: {
         type: Schema.Types.ObjectId,
         ref: 'Address'
     },
