@@ -29,7 +29,7 @@ const create = async (body,image) => {
           name: body.name,
           price: body.price,
           description: body.description,
-          image:image,
+          image: image,
           quantity: body.quantity,
           category:JSON.parse(body.categoryId)}
          )
@@ -42,6 +42,36 @@ const create = async (body,image) => {
          }
      await callProduct.save()
 }
+
+
+const Product = async (id, productSelect, res) => {
+     const product = await productService.findOneProduct(productSelect);
+     console.log(id, product._id, "edit product");
+ 
+     console.log(id, product._id, "produit modifier");
+ 
+     Product.findOneProduct(id, { product: productSelect._id },
+         function (err, product) {
+             if (err) {
+                 console.log(err)
+                 return res.status(400).send(err)
+             }
+             else {
+                 console.log("Updated Product : ", product);
+                 return res.status(200).send(product)
+             }
+         })
+ 
+ 
+     };
+     
+const editProduct = async (id, productSelect, res) => {
+          const product = await productService.findOneProduct(productSelect);
+          return await products.findOneProduct(obj.id);
+          console.log(id, product._id, "produit modifier");
+}
+
+
 const findOneProduct = async(req)=>{
      const callOneProduct = await products.findById(req)
 
@@ -53,4 +83,17 @@ const deleteProduct = async (obj) => {
     return await products.findByIdAndDelete(obj.id);
 }
 
-module.exports = {findAll,page, create, findOneProduct, deleteProduct};
+const updateProduct =  (req, image)=>{
+     console.log(req.body + " body");
+     return  products.findByIdAndUpdate(req.params.id,{
+        name: req.body.produit,
+        description: req.body.description,
+        image: image,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        
+     
+}.save)}
+    
+
+module.exports = {findAll,page, create, findOneProduct, deleteProduct, editProduct, updateProduct};

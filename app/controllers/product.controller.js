@@ -24,6 +24,7 @@ const findAllNouveau = async (req,res) => {
     };
 
 const create = async (req, res) => {
+    console.log(req);
 
     //créer tout d'abord l 'objet produit en ajoutant les id de categorie
     ProductService.create(req.body,
@@ -102,7 +103,16 @@ const findAllTop = async (req,res) => {
             })
         });
     }
+    const updateProduct = async (req, res) => {
+        console.log(req.file);
+        
+        ProductService.updateProduct(req, req.protocol + '://' + req.get('host') + '/uploads/' + req.files.originalname).then((data) => {           
+            res.status(201).send(data)
+        }).catch(error => {
+            res.status(400).send(error);       });
+            console.log(res);
+    }
     
-    module.exports = {findAll,findAllPage, findOne, create, findAllNouveau, deleteProduct, findAllTop};
+    module.exports = {findAll,findAllPage, findOne, create, findAllNouveau, deleteProduct, findAllTop, updateProduct};
     
 

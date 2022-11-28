@@ -1,6 +1,6 @@
-const User = require('../models/user.model');;
+const User = require('../models/user.model');
 const Address = require('../models/address.model');
-const roleService = require('./role.service')
+const roleService = require('./role.service');
 const adresseservice = require('./adresse.service')
 const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const roleModel = require("../models/role.model");
 const { find } = require('../models/role.model');
 const { use } = require('../routes/role.router');
+
 
 const checkPass = (req, res) => {
     if (req.body.password === req.body.confirmpassword) {
@@ -128,7 +129,8 @@ const deleteUser = async (id) => {
 }
 const editUser = async (id, roleSelect, res) => {
     const role = await roleService.findOneRole(roleSelect);
-    // const user = await User.findById(id);
+    console.log(id, role._id, "edit user");
+
     console.log(id, role._id, "edit user");
 
     User.findByIdAndUpdate(id, { role: role._id },
@@ -143,6 +145,7 @@ const editUser = async (id, roleSelect, res) => {
             }
         })
 
+   
 
 };
 
@@ -151,4 +154,6 @@ const editUser = async (id, roleSelect, res) => {
 
 
 
-module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser };
+
+
+module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser};
