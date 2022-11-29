@@ -5,4 +5,11 @@ const findUser = async (reqBody)  => {
     return await Order.find({user: reqBody})
    }
 
-   module.exports = {findUser};
+   const create = async (Body)  => {
+
+    const newOrder = new Order(Body)
+    await newOrder.save()
+   
+   }
+
+   module.exports = {findUser,create};

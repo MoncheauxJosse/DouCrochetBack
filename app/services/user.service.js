@@ -81,7 +81,7 @@ const checkUser = asyncHandler(async (req, res) => {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken.jwtSecurity(user._id , user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+            token: generateToken.jwtSecurity(user._id , user.email, user.telephone, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
 
         })
     } else {
@@ -154,7 +154,7 @@ const updateUser = async (req, res)=>{
                 })
                 const user = await User.findById(req.params.id).populate('adresse')
                 res.status(200).json({
-                    token: generateToken(user._id, user.email,user.telephone, user.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+                    token: generateToken.jwtSecurity(user._id, user.email,user.telephone, user.role, user.firstname, user.lastname, user.birthdate, user.adresse)
                 })
             }
         })

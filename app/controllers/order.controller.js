@@ -11,9 +11,12 @@ const findAllFactureUser = async (req,res) => {
     console.log(rep)
    let OrderUser = await OrderService.findUser(rep._id)
 
+   console.log("voici la factur "+OrderUser)
+   console.log("longeur "+OrderUser.length)
+
    if(OrderUser.length ==0){
 
-    OrderUser =[{name:'aucune facture'}]
+    OrderUser =[{order_bill:'Aucune facture'}]
     res.send(OrderUser)
 
    }else{

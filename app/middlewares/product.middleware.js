@@ -4,6 +4,7 @@ const multer = require('multer')
 const uuidv4 = require('uuidv4')
 
 const DIRECTORY = "./uploads/"
+const DIRECTORYSUPPORT = "./uploadsReturn/"
 const protectProduct = asyncHandler(
   async (req, res, next) => {
 
@@ -34,10 +35,21 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+        const storageReturn = multer.diskStorage({
+          destination: (req, file, cb) => {
+            console.log("sa passe return");
+            cb(null,DIRECTORYSUPPORT);
+          },
+          filename: (req, file, cb) => {
+            const filename = file.originalname.toLowerCase().split(' ').join('-');
+            cb(null,filename)
+          },
+        });
 
+        const upload = multer({ storage: storage });
+        const uploadReturn = multer({ storage: storageReturn });
 
-module.exports = { protectProduct, upload }
-
-
+    module.exports={protectProduct,upload, uploadReturn}
+          
+    
 
