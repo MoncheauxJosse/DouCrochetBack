@@ -49,12 +49,15 @@ const profileUser = async (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-    return userService.deleteUser(req.params.id);
+    return userService.deleteUser(req.params.id, res);
 }
 const editUser = (req, res) => {
     console.log("je passe par la !", req.body.roleSelect);
     return userService.editUser(req.params.id, req.body.roleSelect,res);
 }
 
+const updateUser = (req, res) => {
+    return userService.updateUser(req,res);
+}
 
-module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser}
+module.exports = {findAll, checkUser, profileUser, insert, deleteUser, editUser, updateUser}

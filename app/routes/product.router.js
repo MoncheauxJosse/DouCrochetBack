@@ -18,4 +18,5 @@ routers.get("/detail/:id", productController.findOne)
 routers.post("/update/:id", [protectAdmin,upload.single('image')], productController.updateProduct);
 
 
+
 module.exports = routers

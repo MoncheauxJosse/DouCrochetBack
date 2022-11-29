@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
 const bcrypt = require('bcryptjs');
 const roleModel = require("../models/role.model");
-const { find } = require('../models/role.model');
+const { find, findById } = require('../models/role.model');
 const { use } = require('../routes/role.router');
 
 
@@ -74,14 +74,15 @@ const findOneUser = async function (role) {
 //Vérifier l'email et le mot de passe de l'utilisateur
 const checkUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
-    const user = await User.findOne({ email }).populate('role');
-    if (user && await user.matchPassword(password)) {
+    const user = await User.findOne({ email }).populate('role').populate('adresse');
+    if (user && await user.matchPassword(password)){
         res.json({
             _id: user._id,
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            token: generateToken(user.email, user.role.role)
+            token: generateToken.jwtSecurity(user._id , user.email, user.role.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+
         })
     } else {
         res.status(401).send("Utilisateur non trouvé")
@@ -105,7 +106,7 @@ const profileUser = asyncHandler(async (req, res) => {
 
 // Anonymiser un utilisateur
 
-const deleteUser = async (id) => {
+const deleteUser = async (id, res) => {
     console.log("delet", id);
     User.findByIdAndUpdate(id, {
         firstname: "xxxxx",
@@ -117,6 +118,7 @@ const deleteUser = async (id) => {
         async function (err, docs) {
             if (err) {
                 console.log(err)
+                return res.status(400).send(err)
             }
             else {
                 console.log("Updated User : ", docs.adresse.toString());
@@ -124,15 +126,42 @@ const deleteUser = async (id) => {
                     street: "xxxx",
                     number: "xxxx"
                 })
+                return res.status(200).send(docs)
             }
         })
 }
+const updateUser = async (req, res)=>{
+    User.findByIdAndUpdate(req.params.id,{
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        birthdate: req.body.birthdate,
+        telephone: req.body.telephone,
+        email: req.body.email,
+    
+    },
+        async function (err, docs) {
+            if (err) {
+                console.log(err)
+                return res.status(400).send(err)
+            }
+            else {
+                await Address.findOneAndUpdate(docs.adresse,{
+                    country : req.body.country,
+                    city : req.body.city,
+                    cityCode : req.body.cityCode,
+                    street: req.body.street,
+                    number: req.body.number,
+                })
+                const user = await User.findById(req.params.id).populate('adresse')
+                res.status(200).json({
+                    token: generateToken(user._id, user.email,user.telephone, user.role, user.firstname, user.lastname, user.birthdate, user.adresse)
+                })
+            }
+        })
+}
+
 const editUser = async (id, roleSelect, res) => {
     const role = await roleService.findOneRole(roleSelect);
-    console.log(id, role._id, "edit user");
-
-    console.log(id, role._id, "edit user");
-
     User.findByIdAndUpdate(id, { role: role._id },
         function (err, user) {
             if (err) {
@@ -154,6 +183,4 @@ const editUser = async (id, roleSelect, res) => {
 
 
 
-
-
-module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser};
+module.exports = { findAll, checkUser, profileUser, insert, insertAdmin, findOneUser, checkPass, deleteUser, editUser, updateUser };

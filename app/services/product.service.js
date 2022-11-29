@@ -79,6 +79,13 @@ const findOneProduct = async(req)=>{
    
 }
 
+const UpdateProduct = async(filter,update)=>{
+
+     await products.findOneAndUpdate(filter, update)
+
+
+}
+
 const deleteProduct = async (obj) => {
     return await products.findByIdAndDelete(obj.id);
 }
@@ -92,8 +99,16 @@ const updateProduct =  (req, image)=>{
         price: req.body.price,
         quantity: req.body.quantity,
         
+    }.save),UpdateProduct,findAllSearch}
      
-}.save)}
+const findAllSearch = async (search)  => {
+     const all = await products.find({ category: search });
+
+     return all
+
+    }
+
     
 
-module.exports = {findAll,page, create, findOneProduct, deleteProduct, editProduct, updateProduct};
+
+module.exports = {findAll,page, create, findOneProduct, deleteProduct, editProduct, updateProduct,findAllSearch,UpdateProduct};

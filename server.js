@@ -4,13 +4,13 @@ const cors = require('cors')
 const mongoose = require("mongoose");
 const BddCreate = require('./app/scripts/createBdd.script') 
 const path = require('path')
+const job = require('./app/scripts/cron')
 
 const RoleRoutes = require('./app/routes/role.router')
 const UserRoutes = require('./app/routes/user.router')
 const ProductRoutes = require('./app/routes/product.router');
-
 const CategoryRoutes = require('./app/routes/category.router');
-
+const OrderRoutes = require('./app/routes/order.router');
 const AdminRoutes = require('./app/routes/product.router');
 
 const { constants } = require('fs/promises');
@@ -26,12 +26,12 @@ const connectionParams={
 }
 // Pour se connecter en local
 // mongoose.connect(mongoDB).then(r => {
-//     console.log('Connected to MongoDB')
+//     console.log('Connected to MongoDB local')
 // });
 
-// Pour se connecter au live
+//Pour se connecter au live
 mongoose.connect(url, connectionParams).then(() => {
-    console.log("Connected to MongoDB")
+    console.log("Connected to MongoDB live")
 })
 .catch( (err) => {
     console.error(`Error connecting to the database. n${err}`);
@@ -51,6 +51,9 @@ const corsOptions = {
     methods: "*"
 }
 
+job.task()
+job.startCron()
+
 app.use(cors(corsOptions));
 
 app.use(express.json())
@@ -60,10 +63,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/role", RoleRoutes)
 app.use("/users", UserRoutes);
 app.use('/products', ProductRoutes);
-
 app.use('/products', CategoryRoutes);
-
 app.use('/admin', AdminRoutes)
+
+app.use('/support', OrderRoutes)
 
 
 
