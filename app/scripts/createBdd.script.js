@@ -46,7 +46,7 @@ const insertRoleBDD = async ()=>{
             price_ht: 10,
             tva: 20 ,
             quantity: 2,
-            product: productRec[2]._id
+            product: productRec[0]._id
         })
 
         const findFacture = await  factureLineService.findAll()
