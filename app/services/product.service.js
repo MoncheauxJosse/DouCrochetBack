@@ -7,12 +7,31 @@ const findAll = async ()  => {
     }
     
 
-const page = async (page)  => {
+const page = async (searchName,page)  => {
 
+     console.log("sa passe dans le service",searchName)
+
+     
+     //name.startsWith ?
      let pageEnd = page * 10
      let pageStart = pageEnd -10
+     let all
 
-     const all = await products.find()
+     if(searchName==='Totaux'){
+
+          all = await products.find()
+
+     }else{
+
+          let AllProduct= await products.find()
+
+          // ajouter un tolowercase !
+         all = AllProduct.filter(productName=> productName.name.toLowerCase().startsWith(searchName.toLowerCase()))
+
+          
+     }
+
+     console.log(all)
 
 
      let pageTotal = Math.floor(all.length /10)+1

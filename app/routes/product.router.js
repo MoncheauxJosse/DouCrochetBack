@@ -10,7 +10,7 @@ const routers = express.Router()
 
 routers.get("/", productController.findAll);
 routers.get("/nouveau", productController.findAllNouveau);
-routers.get("/page/:id", productController.findAllPage);
+routers.get("/page/:name/:id", productController.findAllPage);
 routers.post("/create-product", [protectAdmin,protectProduct,upload.single('image')], productController.create);
 routers.get("/topProduit", productController.findAllTop);
 routers.delete("/delete/:id", protectAdmin,  productController.deleteProduct);

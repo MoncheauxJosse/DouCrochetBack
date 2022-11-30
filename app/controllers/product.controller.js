@@ -6,8 +6,10 @@ const findAll = async (req,res) => {
     ProductService.findAll().then(response => res.send(response)).catch(err => res.send(err));
  };
  
+ 
 const findAllPage = async (req,res) => {
-   ProductService.page(req.params.id).then(response => res.send(response)).catch(err => res.send(err));
+
+   ProductService.page(req.params.name,req.params.id).then(response => res.send(response)).catch(err => res.send(err));
 };
 
 const findAllNouveau = async (req,res) => {
