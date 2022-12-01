@@ -9,8 +9,6 @@ const findAll = async ()  => {
 
 const page = async (searchName,page)  => {
 
-     console.log("sa passe dans le service",searchName)
-
      
      //name.startsWith ?
      let pageEnd = page * 10
