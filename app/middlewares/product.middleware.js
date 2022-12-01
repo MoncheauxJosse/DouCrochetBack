@@ -1,4 +1,4 @@
-const Joi = require('Joi')
+const Joi = require('joi')
 const asyncHandler = require('express-async-handler');
 const multer = require('multer')
 const uuidv4 = require('uuidv4')
