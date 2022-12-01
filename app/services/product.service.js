@@ -26,7 +26,7 @@ const page = async (searchName,page)  => {
           let AllProduct= await products.find()
 
           // ajouter un tolowercase !
-         all = AllProduct.filter(productName=> productName.name.toLowerCase().startsWith(searchName.toLowerCase()))
+         all = AllProduct.filter(productName=> productName.name.toLowerCase().includes(searchName.toLowerCase()))
 
           
      }

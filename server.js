@@ -25,9 +25,9 @@ const connectionParams={
     useUnifiedTopology: true 
 }
 // Pour se connecter en local
-// mongoose.connect(mongoDB).then(r => {
-//     console.log('Connected to MongoDB local')
-// });
+/* mongoose.connect(mongoDB).then(r => {
+     console.log('Connected to MongoDB local')
+ });*/
 
 //Pour se connecter au live
 mongoose.connect(url, connectionParams).then(() => {
