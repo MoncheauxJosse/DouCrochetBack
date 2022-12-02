@@ -68,8 +68,8 @@ const findAllTop = async (req,res) => {
     }
     const updateProduct = async (req, res) => {
         console.log(req.file);
-        
-        ProductService.updateProduct(req, req.protocol + '://' + req.get('host') + '/uploads/' + req.files.originalname).then((data) => {           
+        const image = req?.file?.originalname && req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname
+        ProductService.updateProduct(req, image).then((data) => {           
             res.status(201).send(data)
         }).catch(error => {
             res.status(400).send(error);       });

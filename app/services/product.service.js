@@ -119,7 +119,7 @@ const deleteProduct = async (obj) => {
 }
 
 const updateProduct =  (req, image)=>{
-     console.log(req.body + " body");
+     
      return  products.findByIdAndUpdate(req.params.id,{
         name: req.body.produit,
         description: req.body.description,
@@ -127,7 +127,9 @@ const updateProduct =  (req, image)=>{
         price: req.body.price,
         quantity: req.body.quantity,
         
-    }.save),UpdateProduct,findAllSearch}
+     },{
+        new: true
+     })}
      
 const findAllSearch = async (search)  => {
      const all = await products.find({ category: search });
