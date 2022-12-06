@@ -12,6 +12,8 @@ const ProductRoutes = require('./app/routes/product.router');
 const CategoryRoutes = require('./app/routes/category.router');
 const SupportRoutes = require('./app/routes/support.router');
 const AdminRoutes = require('./app/routes/product.router');
+const CookieRoutes = require('./app/routes/cookie.router')
+const cookieParser = require('cookie-parser')
 
 const { constants } = require('fs/promises');
 
@@ -54,6 +56,9 @@ const corsOptions = {
 job.task()
 job.startCron()
 
+app.use(cookieParser())
+
+
 app.use(cors(corsOptions));
 
 app.use(express.json())
@@ -67,7 +72,7 @@ app.use('/products', CategoryRoutes);
 app.use('/admin', AdminRoutes)
 
 app.use('/support', SupportRoutes)
-
+app.use('/cookie', CookieRoutes);
 
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
