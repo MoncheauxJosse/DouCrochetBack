@@ -50,7 +50,8 @@ const corsOptions = {
     origin:'*',
     credentials: true,
     optionsSuccessStatus:200,
-    methods: "*"
+    methods: "*",
+    exposedHeaders: ["SET-COOKIE"]
 }
 
 job.task()

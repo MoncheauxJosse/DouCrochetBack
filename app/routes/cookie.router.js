@@ -1,23 +1,22 @@
 const express = require('express')
 const routers = express.Router()
 
-routers.get('/setcookie', (req, res) => {
-    res.cookie(`Cookie token name`,`encrypted cookie string Value`,{
-        maxAge: 5000,
+routers.post('/setcookie', (req, res) => {
+    res.cookie("accept","value",{
+        maxAge: 86400000,
         expires: new Date('01 12 2023'),
-        secure: false,
+        secure: true,
         httpOnly: true,
-        sameSite: 'lax'
+        sameSite: 'none'
     });
-    res.send('Cookie have been saved successfully');
+    res.send('Cookie sauvegardé');
 });
 routers.get('/getcookie', (req, res) => {
-    console.log(req.cookies)
-    res.send(req.cookies);
+    res.send(req.cookies.accept);
 });
 routers.get('/deletecookie', (req, res) => {
     res.clearCookie()
-    res.send('Cookie has been deleted successfully');
+    res.send('Cookie supprimé');
 });
 
 

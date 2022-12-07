@@ -29,8 +29,6 @@ const page = async (searchName,page)  => {
           
      }
 
-     console.log(all)
-
 
      let pageTotal = Math.floor(all.length /10)+1
 
@@ -42,7 +40,6 @@ const page = async (searchName,page)  => {
      }
 
 const create = async (body,image) => {
-     console.log(image);
      const callProduct= new products({ 
           name: body.name,
           price: body.price,
@@ -64,9 +61,6 @@ const create = async (body,image) => {
 
 const Product = async (id, productSelect, res) => {
      const product = await productService.findOneProduct(productSelect);
-     console.log(id, product._id, "edit product");
- 
-     console.log(id, product._id, "produit modifier");
  
      Product.findOneProduct(id, { product: productSelect._id },
          function (err, product) {
@@ -86,7 +80,6 @@ const Product = async (id, productSelect, res) => {
 const editProduct = async (id, productSelect, res) => {
           const product = await productService.findOneProduct(productSelect);
           return await products.findOneProduct(obj.id);
-          console.log(id, product._id, "produit modifier");
 }
 
 

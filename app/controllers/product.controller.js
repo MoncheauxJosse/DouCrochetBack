@@ -25,7 +25,6 @@ const findAllNouveau = async (req,res) => {
     };
 
 const create = async (req, res) => {
-    console.log(req);
 
     //créer tout d'abord l 'objet produit en ajoutant les id de categorie
     ProductService.create(req.body,
@@ -73,7 +72,6 @@ const findAllTop = async (req,res) => {
             res.status(201).send(data)
         }).catch(error => {
             res.status(400).send(error);       });
-            console.log(res);
     }
     
     module.exports = {findAll,findAllPage, findOne, create, findAllNouveau, deleteProduct, findAllTop, updateProduct};
