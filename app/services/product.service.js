@@ -98,14 +98,18 @@ const UpdateProduct = async(filter,update)=>{
 }
 
 const deleteProduct = async (obj) => {
-     // products.findById(obj.id, (err, res) => {
-     //      var imageResponse = res.image; 
-     //        console.log(imageResponse);
-     //        fs.unlink(__dirname + '/uploads' + imageResponse + ".png", (err) => {
-     //          if (err) throw err;
-     //          console.log('successfully deleted file');
-     //        });
-     // })
+     products.findById(obj.id, (err, res) => {
+          let imageResponse = res.image
+          let split = imageResponse.split('http://localhost:5000')
+          console.log(split[1])
+          console.log(imageResponse)
+            fs.unlink('./' + split[1], (err) => {
+              if (err){
+               console.log(err)
+              };
+              console.log('je passe dans unlink');
+            });
+     })
     return await products.findByIdAndDelete(obj.id);
 }
 
