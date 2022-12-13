@@ -27,17 +27,17 @@ const connectionParams={
     useUnifiedTopology: true 
 }
 // Pour se connecter en local
-mongoose.connect(mongoDB).then(r => {
-     console.log('Connected to MongoDB local')
- });
+// mongoose.connect(mongoDB).then(r => {
+//      console.log('Connected to MongoDB local')
+//  });
 
 //Pour se connecter au live
-// mongoose.connect(url, connectionParams).then(() => {
-//     console.log("Connected to MongoDB live")
-// })
-// .catch( (err) => {
-//     console.error(`Error connecting to the database. n${err}`);
-// });
+mongoose.connect(url, connectionParams).then(() => {
+    console.log("Connected to MongoDB live")
+})
+.catch( (err) => {
+    console.error(`Error connecting to the database. n${err}`);
+});
 
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
@@ -74,7 +74,6 @@ app.use('/admin', AdminRoutes)
 
 app.use('/support', SupportRoutes)
 app.use('/cookie', CookieRoutes);
-
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
 
