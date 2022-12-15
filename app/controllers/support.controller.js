@@ -1,4 +1,5 @@
 const ReturnProductService = require('../services/returnProduct.service');
+const ComplaintService = require('../services/complaint.service');
 
 const create = async (req, res) => {
 
@@ -13,4 +14,16 @@ const create = async (req, res) => {
         })                
 }
 
-module.exports = {create}
+const createComplainte = async (req, res) => {
+
+    ComplaintService.create(req.body).then((data) => {           
+            res.status(201).send(data)
+        }).catch((err) => {
+            res.status(500).send({
+                message: err.message || 'Some error occurred while creating the Product.',
+            });
+        })             
+}
+
+
+module.exports = {create, createComplainte}
