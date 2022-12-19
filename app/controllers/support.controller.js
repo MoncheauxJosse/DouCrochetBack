@@ -25,5 +25,15 @@ const createComplainte = async (req, res) => {
         })             
 }
 
+const getReturns = async (req, res)=>{
+    ReturnProductService.getAllReturn().then((data)=>{
+        res.status(200).send(data)
+    }).catch((err)=>{
+        res.status(500).send({
+            message : "une erreur lors de la récupéartion des retours de produit à eu lieu"
+        })
+    })
 
-module.exports = {create, createComplainte}
+}
+
+module.exports = {create, createComplainte, getReturns}
