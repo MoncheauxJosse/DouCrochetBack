@@ -9,7 +9,7 @@ const findAllFactureUser = async (req,res) => {
     let rep = token.decode(req.params.id)
 
     console.log(rep)
-   let OrderUser = await OrderService.findUser(rep._id)
+   let OrderUser = OrderService.findUser(rep._id)
 
    console.log("voici la factur "+OrderUser)
    console.log("longeur "+OrderUser.length)
@@ -23,10 +23,10 @@ const findAllFactureUser = async (req,res) => {
 
     res.send(OrderUser)
    }
-
-  
-
-
 };
 
-module.exports = {findAllFactureUser}
+const findAll = async (req,res) => {
+    OrderService.findAll().then(response => res.send(response)).catch(err => res.send(err));
+};
+
+module.exports = {findAllFactureUser, findAll}
