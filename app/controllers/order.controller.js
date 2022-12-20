@@ -23,10 +23,30 @@ const findAllFactureUser = async (req,res) => {
 
     res.send(OrderUser)
    }
-
-  
-
-
 };
 
-module.exports = {findAllFactureUser}
+const findAllProductsFactureUser = async (req,res) => {
+
+    console.log(rep)
+
+
+//    let OrderUser = await OrderService.findUser(rep._id)
+
+//    console.log("voici la factur "+OrderUser)
+//    console.log("longeur "+OrderUser.length)
+
+//    if(OrderUser.length ==0){
+
+//     OrderUser =[{order_bill:'Aucune facture'}]
+//     res.send(OrderUser)
+
+//    }else{
+
+//     res.send(OrderUser)
+//    }
+};
+
+
+
+
+module.exports = {findAllFactureUser, findAllProductsFactureUser}
