@@ -1,7 +1,8 @@
 const Order = require("../models/order.model");
 
+
 const findUser = async (reqBody)  => {
-    console.log(reqBody)
+    console.log("id",reqBody)
     return await Order.find({user: reqBody})
    }
 
@@ -12,4 +13,8 @@ const findUser = async (reqBody)  => {
    
    }
 
-   module.exports = {findUser,create};
+   const findAll = async ()  => {
+    return await Order.find().populate('user').populate('productLine')
+   }
+
+   module.exports = {findUser,create, findAll};

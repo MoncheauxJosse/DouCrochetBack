@@ -1,4 +1,6 @@
 const returnProductModel = require("../models/returnProduct.model")
+const orderModel = require('../models/order.model')
+const userModel = require("../models/user.model")
 
 
 const create = async (body,image) => {
@@ -13,4 +15,21 @@ const create = async (body,image) => {
     await callReturnProduct.save()
 }
 
-module.exports = {create}
+const getAllReturn = async (req, res)=>{
+    const getAllReturn = returnProductModel.find().populate([{
+        path : 'order',
+        model : 'Order',
+            populate:{
+                path : 'user',
+                model: 'User',
+            }
+        },
+    ])
+
+    // const orderReturn = orderModel.find().populate('user')
+   
+
+    return getAllReturn
+    
+ }
+module.exports = {create, getAllReturn}
