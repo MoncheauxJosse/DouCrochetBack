@@ -13,8 +13,8 @@ const findUser = async (reqBody)  => {
    
    }
 
-   const findAll = async ()  => {
+   const findOrders = async ()  => {
     return await Order.find().populate('user').populate('productLine')
    }
 
-   module.exports = {findUser,create, findAll};
+   module.exports = {findUser,create, findOrders};

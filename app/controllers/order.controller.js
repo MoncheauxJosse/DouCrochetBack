@@ -9,24 +9,19 @@ const findAllFactureUser = async (req,res) => {
     let rep = token.decode(req.params.id)
 
     console.log(rep)
-   let OrderUser = OrderService.findUser(rep._id)
+    OrderService.findUser(rep._id).then(response=>{
+        if(response.length ==0){
+        response =[{order_bill:'Aucune facture'}]
+         res.send(response)
+        }else{
+         res.send(response)
+        }
+    })
 
-   console.log("voici la factur "+OrderUser)
-   console.log("longeur "+OrderUser.length)
-
-   if(OrderUser.length ==0){
-
-    OrderUser =[{order_bill:'Aucune facture'}]
-    res.send(OrderUser)
-
-   }else{
-
-    res.send(OrderUser)
-   }
 };
 
 const findAll = async (req,res) => {
-    OrderService.findAll().then(response => res.send(response)).catch(err => res.send(err));
+    OrderService.findOrders().then(response => res.send(response)).catch(err => res.send(err));
 };
 
 module.exports = {findAllFactureUser, findAll}
