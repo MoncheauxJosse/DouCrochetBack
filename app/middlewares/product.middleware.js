@@ -35,6 +35,8 @@ const storage = multer.diskStorage({
   },
 });
 
+
+// __________________retour Produit image________________
         const storageReturn = multer.diskStorage({
           destination: (req, file, cb) => {
             console.log("sa passe return");

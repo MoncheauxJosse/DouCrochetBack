@@ -14,6 +14,7 @@ const SupportRoutes = require('./app/routes/support.router');
 const AdminRoutes = require('./app/routes/product.router');
 const CookieRoutes = require('./app/routes/cookie.router');
 const OrdersRoutes = require('./app/routes/orders.router');
+const OrdersStateRoutes = require('./app/routes/orderstate.router');
 const cookieParser = require('cookie-parser')
 
 const { constants } = require('fs/promises');
@@ -28,17 +29,17 @@ const connectionParams={
     useUnifiedTopology: true 
 }
 // Pour se connecter en local
-// mongoose.connect(mongoDB).then(r => {
-//      console.log('Connected to MongoDB local')
-//  });
+mongoose.connect(mongoDB).then(r => {
+     console.log('Connected to MongoDB local')
+ });
 
 //Pour se connecter au live
-mongoose.connect(url, connectionParams).then(() => {
-    console.log("Connected to MongoDB live")
-})
-.catch( (err) => {
-    console.error(`Error connecting to the database. n${err}`);
-});
+// mongoose.connect(url, connectionParams).then(() => {
+//     console.log("Connected to MongoDB live")
+// })
+// .catch( (err) => {
+//     console.error(`Error connecting to the database. n${err}`);
+// });
 
 const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
@@ -46,6 +47,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 BddCreate.insertRoleBDD()
+BddCreate.insertOrderState()
 
 const corsOptions = {
     origin:'http://127.0.0.1:5173',
@@ -76,6 +78,7 @@ app.use('/admin', AdminRoutes)
 app.use('/support', SupportRoutes);
 app.use('/cookie', CookieRoutes);
 app.use('/orders', OrdersRoutes);
+app.use('/orders-state', OrdersStateRoutes);
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
 

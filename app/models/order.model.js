@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 require('./address.model');
 require('./user.model');
 require('./productline.model');
+require('./orderState.model');
 
 const Schema = mongoose.Schema;
 
@@ -11,10 +12,9 @@ const Order = new Schema({
         default: Date.now,
         required: true
     },
-    // changer par une relation
     order_state: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'OrderState'
     },
     order_bill: {
         type: Date,

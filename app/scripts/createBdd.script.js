@@ -4,6 +4,7 @@ const factureLineService= require('../services/productline.service')
 const categoryService = require('../services/category.service')
 const product = require('../services/product.service')
 const Order = require('../services/order.service')
+const orderStateService = require('../services/order_state.service')
 
 const insertRoleBDD = async ()=>{
     
@@ -50,22 +51,40 @@ const insertRoleBDD = async ()=>{
         })
 
         const findFacture = await  factureLineService.findAll()
+        const findOrderState = await orderStateService.findOrderState()
 
         let rep = findFacture[0].id
         let adresseId =  User[0].addresse
         let userId =User[0].id
+        let orderState = findOrderState[0].id
 
         dateCreer = new Date()
 
         const CreateFacture = await Order.create({
-            order_state: 'En cours' ,
+            order_state: [orderState] ,
             order_bill:  dateCreer,
             addresse: adresseId,
             user: userId,
             productLine: [rep]
         })
     }
+
 }
 
-module.exports = {insertRoleBDD}
+const insertOrderState = async () => {
+    const existOrders = await orderStateService.findOrderState()
+    if(existOrders.length < 4){
+        const insert = await orderStateService.insertState(["preparation","expedition","livraison", "recu"])
+        if(insert=="ok"){
+            console.log("Order State OK")
+        }
+        else{
+            console.log("State error")
+        }
+    }
+    else{
+        console.log("Order State déjà ajouté")
+    }
+}
+module.exports = {insertRoleBDD, insertOrderState}
 
