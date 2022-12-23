@@ -24,17 +24,25 @@ const findAllNouveau = async (req,res) => {
         }).catch(err => res.send(err));
     };
 
-const create = async (req, res) => {
+const create = async (req, res,err) => {
 
-    //créer tout d'abord l 'objet produit en ajoutant les id de categorie
+    if (!req.file) {
+        console.log("pas d'image recu");
+        res.status(500).send({
+            message: err.message || 'Image Obligatoire !',
+        });
+        }else{
+            //créer tout d'abord l 'objet produit en ajoutant les id de categorie
     ProductService.create(req.body,
-         req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname).then((data) => {           
-            res.status(201).send(data)
-        }).catch((err) => {
-            res.status(500).send({
-                message: err.message || 'Some error occurred while creating the Product.',
-            });
-        })                
+        req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname).then((data) => {           
+           res.status(201).send(data)
+       }).catch((err) => {
+           res.status(500).send({
+               message: err.message || 'Some error occurred while creating the Product.',
+           });
+       })    
+        }
+                
 }
 
 const findAllTop = async (req,res) => {

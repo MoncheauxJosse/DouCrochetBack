@@ -9,7 +9,8 @@ var multer = require('multer');
 var uuidv4 = require('uuidv4');
 
 var DIRECTORY = "./uploads/";
-var protectProduct = asyncHandler(function _callee(req, res, next) {
+
+let protectProduct = asyncHandler(function _callee(req, res, next) {
   var pattern;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -33,7 +34,9 @@ var protectProduct = asyncHandler(function _callee(req, res, next) {
     }
   });
 });
-var storage = multer.diskStorage({
+
+
+let storage = multer.diskStorage({
   destination: function destination(req, file, cb) {
     console.log("sa passe");
     cb(null, DIRECTORY);
@@ -47,6 +50,7 @@ var storage = multer.diskStorage({
 var upload = multer({
   storage: storage
 });
+
 module.exports = {
   protectProduct: protectProduct,
   upload: upload

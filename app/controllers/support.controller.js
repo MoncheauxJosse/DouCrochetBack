@@ -1,17 +1,26 @@
 const ReturnProductService = require('../services/returnProduct.service');
 const ComplaintService = require('../services/complaint.service');
 
-const create = async (req, res) => {
+const create = async (req, res, err) => {
 
-    //créer tout d'abord l 'objet produit en ajoutant les id de categorie
+    if (!req.file) {
+        console.log("pas d'image recu");
+        res.status(500).send({
+            message: err.message || 'Image Obligatoire !',
+        });
+        }else{
+            //créer tout d'abord l 'objet produit en ajoutant les id de categorie
     ReturnProductService.create(req.body,
-         req.protocol + '://' + req.get('host') + '/uploadsReturn/' + req.file.originalname).then((data) => {           
-            res.status(201).send(data)
-        }).catch((err) => {
-            res.status(500).send({
-                message: err.message || 'Some error occurred while creating the Product.',
-            });
-        })                
+        req.protocol + '://' + req.get('host') + '/uploadsReturn/' + req.file.originalname).then((data) => {           
+           res.status(201).send(data)
+       }).catch((err) => {
+           res.status(500).send({
+               message: err.message || 'Some error occurred while creating the Product.',
+           });
+       }) 
+        }
+
+                   
 }
 
 const createComplainte = async (req, res) => {

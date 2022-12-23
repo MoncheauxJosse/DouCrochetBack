@@ -2,7 +2,7 @@ const Order = require("../models/order.model");
 
 
 const findUser = async (reqBody)  => {
-    console.log(reqBody)
+    console.log("id",reqBody)
     return await Order.find({user: reqBody})
    }
 
