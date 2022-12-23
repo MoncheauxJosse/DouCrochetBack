@@ -8,7 +8,7 @@ const findAllFactureUser = async (req,res) => {
     // recuper le token , il faut le decoder
     let rep = token.decode(req.params.id)
 
-    //console.log(rep)
+    console.log(rep.adresse.country)
 
    OrderService.findUser(rep._id).then(response=>{
 
@@ -30,7 +30,10 @@ const findAllFactureUser = async (req,res) => {
 
 const findAllProductsFactureUser = async (req,res) => {
 
-    console.log(rep)
+    console.log("retourne les produit de la facture ",req.params.id)
+
+    OrderService.findAllFactureId(req.params.id).then(response=>{res.send(response)}).catch(err => res.send(err))
+    
 };
 
 
