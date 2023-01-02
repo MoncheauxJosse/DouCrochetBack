@@ -14,6 +14,8 @@ const SupportRoutes = require('./app/routes/support.router');
 const AdminRoutes = require('./app/routes/product.router');
 const CookieRoutes = require('./app/routes/cookie.router');
 const OrdersRoutes = require('./app/routes/orders.router');
+const paimentStripe = require('./app/routes/paimentStripe.router');
+
 const cookieParser = require('cookie-parser')
 
 const { constants } = require('fs/promises');
@@ -76,6 +78,7 @@ app.use('/admin', AdminRoutes)
 app.use('/support', SupportRoutes);
 app.use('/cookie', CookieRoutes);
 app.use('/orders', OrdersRoutes);
+app.use('/stripe', paimentStripe)
 
 app.listen(PORT,  () => console.log(`Server is running on port ${PORT}`));
 
