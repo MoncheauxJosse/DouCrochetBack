@@ -15,6 +15,10 @@ const Schema = mongoose.Schema;
         type: String,
         required: true
     },
+    etat: {
+        type: Boolean,
+        default: false
+    },
     order: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order',
