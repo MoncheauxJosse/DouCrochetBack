@@ -5,9 +5,16 @@ const findAll = async ()  => {
    }
 
    const create = async (body) => {
-    const callFactureLine= new factureLine(body)
-    await callFactureLine.save()
+    const callFactureLine= new factureLine({
+        price_ht: body.price_ht,
+        quantity: body.quantity,
+        product: body.product
+    })
+    const productLine = await callFactureLine.save()
+    console.log(productLine)
+    return productLine
 }
+
 
 
 

@@ -44,5 +44,14 @@ const getReturns = async (req, res)=>{
     })
 
 }
+const modifyState = async (req,res)=>{
+    ReturnProductService.modifyState(req).then((data)=>{
+        res.status(200).send(data)
+    }).catch((err)=>{
+        res.status(500).send({
+            message : "une erreur lors de la modification du status de retour à eu lieu"
+        })
+    })
+}
 
-module.exports = {create, createComplainte, getReturns}
+module.exports = {create, createComplainte, getReturns, modifyState}

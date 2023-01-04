@@ -1,6 +1,7 @@
 const OrderService = require('../services/order.service')
 const User = require('../services/user.service')
 const token = require('../security/jwt.security')
+const paiementStripe = require('./paiementStripe.controller')
 
 
 const findAllFactureUser = async (req,res) => {
@@ -25,5 +26,6 @@ const findAllProductsFactureUser = async (req,res) => {
 const findAll = async (req,res) => {
     OrderService.findOrders().then(response => res.send(response)).catch(err => res.send(err));
 };
+
 
 module.exports = {findAllFactureUser, findAll, findAllProductsFactureUser}

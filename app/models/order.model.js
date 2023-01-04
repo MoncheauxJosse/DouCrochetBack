@@ -18,7 +18,6 @@ const Order = new Schema({
     },
     order_bill: {
         type: Date,
-        required: true
     },
     order_delivery: {
         type: Date
@@ -34,7 +33,10 @@ const Order = new Schema({
     productLine: [{
         type: Schema.Types.ObjectId,
         ref: 'ProductLine'
-    }]
+    }],
+    ref: {
+        type: String
+    }
 })
 
 module.exports = mongoose.model('Order', Order)
