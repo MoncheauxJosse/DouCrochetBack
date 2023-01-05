@@ -49,7 +49,6 @@ const paiementAuto = async(req, res) => {
         order_state: '63b2b43b7f36155f8254afd4',
         addresse: null,
         user: req.params.id,
-        // productLine: productLines,
         ref: random
       })
       console.log(order)
