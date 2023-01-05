@@ -27,7 +27,6 @@ const findAllNouveau = async (req,res) => {
 const create = async (req, res,err) => {
 
     if (!req.file) {
-        console.log("pas d'image recu");
         res.status(500).send({
             message: err.message || 'Image Obligatoire !',
         });
@@ -74,7 +73,6 @@ const findAllTop = async (req,res) => {
         });
     }
     const updateProduct = async (req, res) => {
-        console.log(req.file);
         const image = req?.file?.originalname && req.protocol + '://' + req.get('host') + '/uploads/' + req.file.originalname
         ProductService.updateProduct(req, image).then((data) => {           
             res.status(201).send(data)

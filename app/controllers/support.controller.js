@@ -4,7 +4,6 @@ const ComplaintService = require('../services/complaint.service');
 const create = async (req, res, err) => {
 
     if (!req.file) {
-        console.log("pas d'image recu");
         res.status(500).send({
             message: err.message || 'Image Obligatoire !',
         });

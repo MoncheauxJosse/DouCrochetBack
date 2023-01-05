@@ -107,7 +107,6 @@ const deleteProduct = async (obj) => {
               if (err){
                console.log(err)
               };
-              console.log('je passe dans unlink');
             });
      })
     return await products.findByIdAndDelete(obj.id);

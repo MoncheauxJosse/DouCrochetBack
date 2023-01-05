@@ -6,7 +6,6 @@ const insert = async function(req, res){
     }
 
  const findOne = async function(adresse){
-    console.log(adresse)
     return await AdresseModel.find({adresse:adresse})
  }
 

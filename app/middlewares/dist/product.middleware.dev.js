@@ -16,7 +16,6 @@ let protectProduct = asyncHandler(function _callee(req, res, next) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          console.log("passe dans joy");
           pattern = Joi.object({
             name: Joi.string().required(),
             price: Joi.number(),
@@ -38,11 +37,9 @@ let protectProduct = asyncHandler(function _callee(req, res, next) {
 
 let storage = multer.diskStorage({
   destination: function destination(req, file, cb) {
-    console.log("sa passe");
     cb(null, DIRECTORY);
   },
   filename: function filename(req, file, cb) {
-    console.log(file, "je suis file update");
     var filename = file.originalname.toLowerCase().split(' ').join('-');
     cb(null, filename);
   }

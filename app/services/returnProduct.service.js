@@ -5,7 +5,6 @@ const userModel = require("../models/user.model")
 
 const create = async (body,image) => {
 
-    console.log(body)
     const callReturnProduct= new returnProductModel({ 
         name: body.nameProduct,
         description: body.description,
@@ -25,12 +24,7 @@ const getAllReturn = async (req, res)=>{
             }
         },
     ])
-
-    // const orderReturn = orderModel.find().populate('user')
-   
-
     return getAllReturn
-    
  }
 
  const modifyState = async (req, res) => {

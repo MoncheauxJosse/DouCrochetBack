@@ -1,9 +1,11 @@
 const Order = require("../models/order.model");
+const ProductsLine = require("../models/productline.model")
+const returnProductModel = require("../models/returnProduct.model");
+
 const OrderStateModel = require("../models/orderState.model");
 const OrderModel = require("../models/order.model");
 
 const findUser = async (reqBody)  => {
-    console.log("id",reqBody)
     return await Order.find({user: reqBody})
    }
 
@@ -26,7 +28,26 @@ const findUser = async (reqBody)  => {
     .populate('order_state')
    }
 
-   
-   
+   const findAll = async ()  => {
 
-   module.exports = {findUser,create, findOrders};
+    const user = Order.find().populate('user')
+    return user
+   }
+
+   const findAllFactureId = async (factureId)  => {
+
+    // recupere le tableaux d'id des Ligne de produit lié a la facture
+    const returnLineProducts = await Order.find({_id: factureId}).populate({
+        path: 'productLine',
+        model: 'ProductLine',
+        populate: {
+            path: 'product',
+            model: 'Product'
+        }
+   })
+
+
+    return returnLineProducts
+   }
+
+   module.exports = {findUser,create, findAll,findAllFactureId, findOrders};

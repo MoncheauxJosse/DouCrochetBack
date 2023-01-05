@@ -5,9 +5,6 @@ const adresseservice = require('./adresse.service')
 const asyncHandler = require("express-async-handler");
 const generateToken = require('../security/jwt.security');
 const bcrypt = require('bcryptjs');
-const roleModel = require("../models/role.model");
-const { find, findById } = require('../models/role.model');
-const { use } = require('../routes/role.router');
 
 
 const checkPass = (req, res) => {
@@ -107,7 +104,6 @@ const profileUser = asyncHandler(async (req, res) => {
 // Anonymiser un utilisateur
 
 const deleteUser = async (id, res) => {
-    console.log("delet", id);
     User.findByIdAndUpdate(id, {
         firstname: "xxxxx",
         lastname: "xxxxxx",

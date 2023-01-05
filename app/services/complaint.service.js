@@ -4,8 +4,6 @@ const token = require("../security/jwt.security")
 
 const create = async (body) => {
 
-    console.log(body)
-
 const tokenDecrypt =token.decode(body.token)
 
 console.log(tokenDecrypt)

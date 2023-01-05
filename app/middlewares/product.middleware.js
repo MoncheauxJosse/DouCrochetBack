@@ -7,8 +7,6 @@ const DIRECTORY = "./uploads/"
 const DIRECTORYSUPPORT = "./uploadsReturn/"
 const protectProduct = asyncHandler(
   async (req, res, next) => {
-
-    console.log("passe dans joy")
     const pattern = Joi.object({
 
       name: Joi.string().required(),
@@ -39,7 +37,6 @@ const storage = multer.diskStorage({
 // __________________retour Produit image________________
         const storageReturn = multer.diskStorage({
           destination: (req, file, cb) => {
-            console.log("sa passe return");
             cb(null,DIRECTORYSUPPORT);
           },
           filename: (req, file, cb) => {

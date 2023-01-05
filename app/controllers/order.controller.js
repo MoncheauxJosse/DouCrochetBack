@@ -1,13 +1,11 @@
 const OrderService = require('../services/order.service')
-const User = require('../services/user.service')
 const token = require('../security/jwt.security')
-const paiementStripe = require('./paiementStripe.controller')
 
 
 const findAllFactureUser = async (req,res) => {
     // recuper le token , il faut le decoder
     let rep = token.decode(req.params.id)
-    //console.log(rep)
+
    OrderService.findUser(rep._id).then(response=>{
     if(response.length ==0){
         response =[{order_bill:'Aucune facture'}]
@@ -19,7 +17,9 @@ const findAllFactureUser = async (req,res) => {
 };
 
 const findAllProductsFactureUser = async (req,res) => {
-    console.log(rep)
+
+    OrderService.findAllFactureId(req.params.id).then(response=>{res.send(response)}).catch(err => res.send(err))
+    
 };
 
 

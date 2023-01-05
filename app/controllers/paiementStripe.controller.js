@@ -7,17 +7,12 @@ const OrderModel = require('../models/order.model')
 
 const paiementAuto = async(req, res) => {
     const random = randomString.genRandomString(20)
-    console.log(req.params.id)
     const products = req.body
-    console.log(products)
     const long = products.length
-    // console.log(long)
     let totalPrice = 0
-    // console.log(products.body)
     for(let i = 0; i < long; i++){
         totalPrice += products[i].quantity * products[i].price
     }
-    console.log(totalPrice)
     totalPrice = totalPrice * 100
     let line_items = [
 
@@ -36,7 +31,6 @@ const paiementAuto = async(req, res) => {
     ]
         
     line_items = line_items.flat();
-    console.log(line_items)
 
     const session = await stripe.checkout.sessions.create({
         line_items,
@@ -51,8 +45,6 @@ const paiementAuto = async(req, res) => {
         user: req.params.id,
         ref: random
       })
-      console.log(order)
-      const productLines = []
       products.forEach(async product => {
         const productLine = await productLineService.create({
             price_ht : product.price,
@@ -64,7 +56,7 @@ const paiementAuto = async(req, res) => {
                 productLine: productLine
             }
         })
-        console.log("test", test)
+        console.log(test)
       });
       
       res.send(session.url) 

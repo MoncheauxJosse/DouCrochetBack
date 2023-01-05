@@ -22,7 +22,6 @@ const insert = (req, res) => {
         });
     }
     // Create a Role
-    // const role = new RoleModel({ ...req.body });
     const role = new RoleModel({
         role : "admin"
     })

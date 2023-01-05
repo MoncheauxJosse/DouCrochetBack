@@ -11,7 +11,6 @@ const findAll = async ()  => {
         product: body.product
     })
     const productLine = await callFactureLine.save()
-    console.log(productLine)
     return productLine
 }
 
