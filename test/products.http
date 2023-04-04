@@ -1,0 +1,16 @@
+GET http://localhost:5000/products
+
+
+# POST http://localhost:5000/products
+# Content-Type: application/json
+
+# {
+#     "name": "Peluche2",
+#     "price": 11,
+#     "description": "Belle Peluche2 !",
+#     "creation_date": "2014-12-12",
+#     "image": "https://picsum.photos/200/300",
+#     "quantity": 80,
+#     "tva": [],
+#     "category": []
+# }
