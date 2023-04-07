@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # API nodejs
 
 =======
